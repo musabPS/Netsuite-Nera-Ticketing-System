@@ -1,0 +1,38 @@
+//
+// Header
+//
+
+
+// Desktop Mode
+@include media-breakpoint-up(lg) {
+	.header {
+		position: relative;
+		display: flex;
+		align-items: stretch;
+		transition: height 0.3s ease;
+		background-color: get($header-config, desktop, bg-color);
+		box-shadow: get($header-config, desktop, shadow);
+		height: get($header-config, desktop, height);
+		z-index: 2;
+
+		// Content
+		.container,
+		.container-fluid {
+			display: flex;
+			justify-content: space-between;
+			align-items: stretch;
+
+			padding-left: 0 !important;
+		}
+
+		// Fixed Header and Minimized Header Modes
+		.header-fixed & {
+			position: fixed;
+			top: 0;
+			right: 0;
+			left: 0;
+			z-index: get($header-config, desktop, zindex);
+			height: get($header-config, desktop, height);
+		}
+	}
+}

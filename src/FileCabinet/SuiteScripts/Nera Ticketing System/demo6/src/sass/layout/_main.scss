@@ -1,0 +1,53 @@
+//
+// Base
+//
+
+// Body
+body {
+	background: $page-bg;
+}
+
+// Desktop Mode
+@include media-breakpoint-up(lg) {
+	// Wrapper
+	.wrapper {
+		// Fixed Header and Minimized Header Modes
+		.header-fixed & {
+			padding-top: get($header-config, desktop, height);
+		}
+
+		// Fixed header, minimized header and fixed subheader
+		.header-fixed.subheader-fixed & {
+			padding-top: get($header-config, desktop, height) + get($subheader-config, fixed, height);
+		}
+	}
+
+	// Container
+	.container,
+	.container-fluid {
+		padding: 0 get($page-padding, desktop);
+	}
+}
+
+// Tablet & Mobile Modes
+@include media-breakpoint-down(md) {
+	// Wrapper
+	.wrapper {
+		// Fixed Header Mode
+		.header-mobile-fixed & {
+			padding-top: get($header-config, tablet-and-mobile, height);
+		}
+
+		// Fixed header, minimized header and fixed subheader
+		.header-mobile-fixed.subheader-mobile-fixed & {
+			padding-top: get($header-config, tablet-and-mobile, height) + get($subheader-config, fixed, height-mobile);
+		}
+	}
+
+	// Container
+	.container,
+	.container-fluid {
+		max-width: none;
+		padding: 0 get($page-padding, tablet-and-mobile);
+	}
+}

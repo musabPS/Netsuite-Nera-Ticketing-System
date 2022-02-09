@@ -1,0 +1,49 @@
+//
+// Subheader
+//
+
+.subheader {
+	display: flex;
+	align-items: center;
+	background-color: get($subheader-config, default, bg-color);
+}
+
+// Desktop Mode
+@include media-breakpoint-up(lg) {
+	.subheader {
+		// Fixed subheader mode
+		.header-fixed.subheader-fixed & {
+			position: fixed;
+			height: get($subheader-config, fixed, height);
+			top: get($header-config, desktop, height);
+			left: 0;
+			right: 0;
+			transition: all 0.3s ease;
+			z-index: get($subheader-config, fixed, zindex);
+			box-shadow: get($subheader-config, fixed, shadow);
+			background-color: get($subheader-config, default, bg-color);
+			border-top: 1px solid get($subheader-config, default, border-color);
+			margin: 0;
+		}
+	}
+}
+
+// Tablet & Mobile Modes
+@include media-breakpoint-down(md) {
+	// Mobile fixed subheader mode
+	.subheader {
+		.header-mobile-fixed.subheader-mobile-fixed & {
+			position: fixed;
+			height: get($subheader-config, fixed, height-mobile);
+			top: get($header-config, tablet-and-mobile, height);
+			left: 0;
+			right: 0;
+			transition: top 0.3s ease;
+			z-index: get($subheader-config, fixed, zindex);
+			box-shadow: get($subheader-config, fixed, shadow);
+			background-color: get($subheader-config, default, bg-color);
+			border-top: 1px solid get($subheader-config, default, border-color);
+			margin: 0;
+		}
+	}
+}
