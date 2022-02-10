@@ -50976,7 +50976,7 @@ a.text-hover-white:hover .svg-icon svg:hover g [fill],
 }
 
 .text-light-primary {
-  color: white !important;
+  color: #3699FF !important;
 }
 
 a.text-hover-primary,
@@ -85438,7 +85438,6 @@ body {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    background-color: #e1261c;
     padding: 0 25px;
   }
 }

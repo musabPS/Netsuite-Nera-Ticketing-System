@@ -10,11 +10,10 @@ define([
     'N/redirect', 
     'N/url',
     'N/https',
-    // 'SuiteScripts/Vendor2/model/dataSource.js',
-    // './lib/constants_lib.js',
-    // './lib/data_search_lib',
-    // './lib/helper_lib'
-], function (render, file, search, redirect, url, https) {
+     'SuiteScripts/Nera Ticketing System/lib/data_search_lib',
+     'SuiteScripts/Nera Ticketing System/lib/constants_lib.js',
+     'SuiteScripts/Nera Ticketing System/lib/helper_lib'
+], function (render, file, search, redirect, url, https,searchlib,constants,helperlib) {
 
 
     function htmlContent(link, dataSource) {
@@ -51,45 +50,24 @@ define([
 
     function onGet(context) {
 
-        // let userId = context.request.parameters.userid;
-
-        // salesOrderDetails = searchlib.getSalesorderDetailsBySalesRep(userId)
-        // log.debug("salesOrderDetails", salesOrderDetails)
 
         masterDataSource = {
-            // list: salesOrderDetails,
-            // customerRequests: searchlib.getTotalCustomerRequestForCard(),
-            // totalOrders: searchlib.getTotalSalesorders(),
-            // pendingOrders: searchlib.getPendingOrders(),
-            // salesbymonthgraph: searchlib.getSalesByMonthForGraph(),
-            // salesbycustomer: searchlib.getSalesByCustomer(),
-            // salesordercreatelink: constants.SCRIPT.SALESORDER_CREATE.URL,
-            // salesorderviewlink: constants.SCRIPT.SALESORDER_VIEW.URL,
+
         }
 
-        // log.debug("masterDataSource", masterDataSource)
-
-        // asideDataSource = helperlib.addAsideDataSource();
-
-        // ///dynamic extract link
-        // pageContent = htmlContent(constants.URL.PAGE.PARTIALS.CONTENT, masterDataSource);
-        // asidePageContent = htmlContent(constants.URL.PAGE.PARTIALS.ASIDE,asideDataSource);
+         asidePageContent = htmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,searchlib.getScriptLinks());
         pageContent = htmlContent('SuiteScripts/Nera Ticketing System/my-app/partials/_content.html',masterDataSource);
         dataSource = {
-            // asidePageContent : asidePageContent,
+            asidePageContent : asidePageContent,
             pageContent: pageContent,
             breadcrumbs: "",
           }
-        // // log.debug("dataSource : ", dataSource);
+    
 
-        //   var finalDatasource = helperlib.addAssetsDataSource(dataSource);
+           var finalDatasource = helperlib.addAssetsDataSource(dataSource);
 
-        //   log.debug("finalDatasource : ",finalDatasource);
-
-        //dataSource=""
-
-       
-        finalData = htmlContent("SuiteScripts/Nera Ticketing System/my-app/index.html", dataSource)   //current file
+ 
+        finalData = htmlContent("SuiteScripts/Nera Ticketing System/my-app/index.html", finalDatasource)   //current file
 
         context.response.write(finalData);
     }

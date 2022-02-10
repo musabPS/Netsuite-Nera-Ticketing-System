@@ -21113,13 +21113,15 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 900;
   font-display: auto;
-  src: url("fonts/line-awesome/la-solid-900.eot");
-  src: url("fonts/line-awesome/la-solid-900.eot?#iefix") format("embedded-opentype"), url("fonts/line-awesome/la-solid-900.woff2") format("woff2"), url("fonts/line-awesome/la-solid-900.woff") format("woff"), url("fonts/line-awesome/la-solid-900.ttf") format("truetype"), url("fonts/line-awesome/la-solid-900.svg#lineawesome") format("svg");
+  src: url("core/media/media.nl?id=62041&c=TSTDRV925863&h=WkILzuKb-mo4zsJf3-1rI4xh9-M_Y9Zt_-RNUQp-wdIBO33s&_xt=.eot");
+  src: url("core/media/media.nl?id=62041&c=TSTDRV925863&h=WkILzuKb-mo4zsJf3-1rI4xh9-M_Y9Zt_-RNUQp-wdIBO33s&_xt=.eot?#iefix") format("embedded-opentype"), url("core/media/media.nl?id=62039&c=TSTDRV925863&h=KOSqmnXafJrG2d9qCev0utCWQTRBwD81ZCnofkmzvQj4Hk_Y&_xt=.woff2") format("woff2"), url("core/media/media.nl?id=62051&c=TSTDRV925863&h=fn7cnKm2A7_qy9omTK011Allo5yqPsgUw9UZLVZWt4BGPnXm&_xt=.woff") format("woff"), url("core/media/media.nl?id=62044&c=TSTDRV925863&h=JuD1HMhXBvw2uzLxBaxbJ6Fl6gq53-Dktk_bItcQNSWLBJ_c&_xt=.ttf") format("truetype"), url("core/media/media.nl?id=62043&c=TSTDRV925863&h=4K32TyY9ehX_4_AB-BchpcLzFxBjDBmIgB3hbXIMvHJOdR22&_xt=.svg#lineawesome") format("svg");
 }
 .la,
 .las {
   font-family: "Line Awesome Free";
   font-weight: 900;
+
+  
 }
 
 .la.la-glass:before {
@@ -24880,8 +24882,8 @@ readers do not read off random characters that represent icons */
   */
 @font-face {
   font-family: "Flaticon2";
-  src: url("fonts/flaticon2/Flaticon2.eot");
-  src: url("fonts/flaticon2/Flaticon2.eot?#iefix") format("embedded-opentype"), url("fonts/flaticon2/Flaticon2.woff") format("woff"), url("fonts/flaticon2/Flaticon2.ttf") format("truetype"), url("fonts/flaticon2/Flaticon2.svg#Flaticon2") format("svg");
+  src: url("core/media/media.nl?id=62029&c=TSTDRV925863&h=NuJkOCr_2qQPrksCuwFGDNJVO87zYGsJ5IRSTn4kctQdYR3I&_xt=.eot");
+  src: url("core/media/media.nl?id=62029&c=TSTDRV925863&h=NuJkOCr_2qQPrksCuwFGDNJVO87zYGsJ5IRSTn4kctQdYR3I&_xt=.eot?#iefix") format("embedded-opentype"), url("core/media/media.nl?id=62028&c=TSTDRV925863&h=cLMG4aH-PPQD65Q7bCRB9YAQF0oTtLD5drjt1ZlTY_zT-fQg&_xt=.woff") format("woff"), url("core/media/media.nl?id=62027&c=TSTDRV925863&h=SgTVU-YfmwHFznSnE4JacvC4KDrXoKi0SdYRdfASjxM0R98x&_xt=.ttf") format("truetype"), url("core/media/media.nl?id=62030&c=TSTDRV925863&h=qaJtJBTSs7HMB4TP3fiPctSafGVtvXrJanALliJlo2HzDOHg&_xt=.svg") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -32609,15 +32611,15 @@ readers do not read off random characters that represent icons */
 }
 .fab, .far {
   font-weight: 400;
-}
+} 
 
 @font-face {
   font-family: "Font Awesome 5 Free";
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url("fonts/@fortawesome/fa-solid-900.eot");
-  src: url("fonts/@fortawesome/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("fonts/@fortawesome/fa-solid-900.woff2") format("woff2"), url("fonts/@fortawesome/fa-solid-900.woff") format("woff"), url("fonts/@fortawesome/fa-solid-900.ttf") format("truetype"), url("fonts/@fortawesome/fa-solid-900.svg#fontawesome") format("svg");
+  src: url("core/media/media.nl?id=62017&c=TSTDRV925863&h=kkIi96Z9l3LmHQH-KOeFkqnSSo6_5X9nGLZIFUWDrBpxP5vJ&_xt=.eot");
+  src: url("core/media/media.nl?id=62017&c=TSTDRV925863&h=kkIi96Z9l3LmHQH-KOeFkqnSSo6_5X9nGLZIFUWDrBpxP5vJ&_xt=.eot?#iefix") format("embedded-opentype"), url("core/media/media.nl?id=62016&c=TSTDRV925863&h=GqRCawIfCIGAg9QJFx49-JWXQV03G_4uFhE26aatGTE6v3Ul&_xt=.woff2") format("woff2"), url("core/media/media.nl?id=62009&c=TSTDRV925863&h=l-wnof2bSvbCr1JgZavNxA0xSZqRcmrJ7EKo-8YAZezeF0KO&_xt=.woff") format("woff"), url("core/media/media.nl?id=62015&c=TSTDRV925863&h=HGoM9XPmW1qRagzQSRc-rMaNhiid8lyoldwduK_TUmrvtIGc&_xt=.ttf") format("truetype"), url("core/media/media.nl?id=62011&c=TSTDRV925863&h=6wW2-LujJJl__OPlOnI9LPfFeIV7IHpX5awuiSmfF_ceOn-7&_xt=.svg#fontawesome") format("svg");
 }
 .fa, .far, .fas {
   font-family: "Font Awesome 5 Free";

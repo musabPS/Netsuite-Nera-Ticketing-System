@@ -18,7 +18,7 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 	<head>
 		<base href="">
 		<meta charset="utf-8" />
-		<title>Keen | Dashboard</title>
+		<title>Nera Ticketing System</title>
 		<meta name="description" content="Updates and statistics" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
@@ -28,16 +28,16 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 		<!--end::Fonts-->
 
 		<!--begin::Page Vendors Styles(used by this page) assets/plugins/custom/fullcalendar/fullcalendar.bundle.css -->
-		<link href="/core/media/media.nl?id=61814&c=TSTDRV925863&h=IBm3a8t2qm1EZLAIXETfVYFt3xDQShW21tRQG0inUKYjaZ0z&_xt=.css" rel="stylesheet" type="text/css" />
+		<link href="${ds.fullcalendar_bundle_css}" rel="stylesheet" type="text/css" />
 
 		<!--end::Page Vendors Styles-->
 
 		<!--begin::Global Theme Styles(used by all pages) assets/plugins/global/plugins.bundle.css -->
-		<link href="/core/media/media.nl?id=62006&c=TSTDRV925863&h=y_b0Td5xPj6AYwjrtfAJaIO-qEix__tgJRmQJh3xwdviXLdw&_xt=.css" rel="stylesheet" type="text/css" /> 
+		<link href="${ds.plugins_bundle_css}" rel="stylesheet" type="text/css" /> 
          <!--begin::Global Theme Styles(used by all pages) assets/plugins/custom/prismjs/prismjs.bundle.css -->
-		<link href="/core/media/media.nl?id=61828&c=TSTDRV925863&h=8_v2-IIJlsK2LNY3dJsBvF8lYRk_YRxuv6FdJaMPxHbXAHx8&_xt=.css" rel="stylesheet" type="text/css" />
+		<link href="${ds.prismjs_bundle_css}" rel="stylesheet" type="text/css" />
 <!--begin::Global Theme Styles(used by all pages) assets/css/style.bundle.css -->
-		<link href="/core/media/media.nl?id=60381&c=TSTDRV925863&h=g2mtwkuCSWOe7AXe8KjVywrRePqcBcPYSF78FwHwqc6pav_W&_xt=.css" rel="stylesheet" type="text/css" />
+		<link href="${ds.style_bundle_css}" rel="stylesheet" type="text/css" />
 
 		<!--end::Global Theme Styles-->
 
@@ -58,7 +58,7 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 		<!--[html-partial:include:{"file":"partials/_header-mobile.html"}]/-->
 
 		<!--[html-partial:include:{"file":"partials/_aside.html"}]/-->
-		<#include "62069">
+		${ds.asidePageContent}
 		<div class="d-flex flex-column flex-root">
 
 			<!--begin::Page-->
@@ -174,21 +174,21 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 		<!--end::Global Config-->
 
 		<!--begin::Global Theme Bundle(used by all pages) assets/plugins/global/plugins.bundle.js-->
-		<script src="/core/media/media.nl?id=62005&c=TSTDRV925863&h=KBbilxBU7yRLJItCZPkq0tcFVBaAn23ugDMEGRHUNifjPQs-&_xt=.js"></script>
+		<script src="${ds.plugins_bundle_js}"></script>
         <!--begin::Global Theme Bundle(used by all pages) assets/plugins/custom/prismjs/prismjs.bundle.js-->
-		<script src="/core/media/media.nl?id=61827&c=TSTDRV925863&h=Q27BEef6ITZUTZeNhnJnA5RSwhQNr97Pnb1nQgEayXMgDGEG&_xt=.js"></script>
+		<script src="${ds.prismjs_bundle_js}"></script>
        <!--begin::Global Theme Bundle(used by all pages) assets/js/scripts.bundle.js-->
-		<script src="https://tstdrv925863.app.netsuite.com/core/media/media.nl?id=60390&c=TSTDRV925863&h=mnzYjdDVks8OxiYVQr6Es0JfUCfW-XYuw3k1XX8g8nFSnAln&_xt=.js"></script>
+		<script src="${ds.script_bundle_js}"></script>
 
 		<!--end::Global Theme Bundle-->
 
 		<!--begin::Page Vendors(used by this page) assets/plugins/custom/fullcalendar/fullcalendar.bundle.js-->
-		<script src="/core/media/media.nl?id=61815&c=TSTDRV925863&h=ehZ6JRw-Eios6W2IvAxVxd8GmpfBr2s94qWzMzPqtg-wue1e&_xt=.js"></script>
+		<script src="${ds.fullcalendar_bundle_js}"></script>
 
 		<!--end::Page Vendors-->
 
 		<!--begin::Page Scripts(used by this page) assets/js/pages/widgets.js-->
-		<script src="/core/media/media.nl?id=60392&c=TSTDRV925863&h=O2T0DBCV7LViHTraFiOXJM8obmJpByl_wSTfF9QgQqR_bNdI&_xt=.js"></script>
+		<script src="${ds.widgets_js}"></script>
 
 		<!--end::Page Scripts-->
 	</body>
