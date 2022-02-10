@@ -50,7 +50,7 @@ define([
 
     function onGet(context) {
 
-        log.debug("chsfgjg",constants)
+        log.debug("chsfgjg",constants.URL)
 
         
 
@@ -59,7 +59,7 @@ define([
         }
 
          asidePageContent = htmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,searchlib.getScriptLinks());
-        pageContent = htmlContent('SuiteScripts/Nera Ticketing System/my-app/partials/_content.html',masterDataSource);
+        pageContent = htmlContent('SuiteScripts/Nera Ticketing System/my-app/pages/newFormSingtel.html',masterDataSource);
         dataSource = {
             asidePageContent : asidePageContent,
             pageContent: pageContent,

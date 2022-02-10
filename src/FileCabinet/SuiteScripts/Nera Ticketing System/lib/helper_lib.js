@@ -4,20 +4,18 @@
  * @description This file contains all the constants for the project.
  */ 
 
- define(['N/url','N/file'], function (url,file) {
+ define(['N/url','N/file','SuiteScripts/Nera Ticketing System/lib/constants_lib.js'], function (url,file,constants) {
 
-    function getSuiteletUrl(){
-        var suitletUrl = url.resolveScript({
-                scriptId: 'customscript_sl_sp_index',
-                deploymentId: 'customdeploy_sl_sp_index', 
-                returnExternalUrl: true
-            })
-            return suitletUrl;
-     } 
+
+    var rootfolder='SuiteScripts/Nera Ticketing System/my-app/';
+   
+
 
      function addAssetsDataSource(datasource){
-    
-      var rootfolder='SuiteScripts/Nera Ticketing System/my-app/';
+
+        datasource.wizard_4_css = file.load({
+            id: rootfolder+'assets/css/pages/wizard/wizard-4.css'
+        }).url;
 
         datasource.fullcalendar_bundle_css = file.load({
             id: rootfolder+'assets/plugins/custom/fullcalendar/fullcalendar.bundle.css'
@@ -72,9 +70,7 @@
 
      return {
       addAssetsDataSource,
-     // addAsideDataSource,
       renderHtmlContent,
-    //   getSuiteletUrl
      }
 
 });
