@@ -61,7 +61,40 @@
 
     }
 
+    function loginSavedSearch(username,password)
+    {
+       var customerSearchObj = search.create({
+      type: "customer",
+      filters:
+      [
+         ["custentity_ps_neraticketing_accesscheck","is","T"], 
+         "AND", 
+         ["custentity_ps_ticketingsystem_password","is","12345678"]
+      ],
+      columns:
+      [
+         search.createColumn({name: "internalid", label: "Internal ID"}),
+         search.createColumn({
+            name: "entityid",
+            sort: search.Sort.ASC,
+            label: "Name"
+         })
+      ]
+   });
+    var isData = customerSearchObj.run();
+    var isFinalResult = isData.getRange(0, 999);
+    var  parseData = JSON.parse(JSON.stringify(isFinalResult));
+
+   return parseData
+
+
+    }
+
+
+
      return {
-        getScriptLinks : getScriptLinks
+        getScriptLinks : getScriptLinks,
+        loginSavedSearch : loginSavedSearch
+        
      }
  });

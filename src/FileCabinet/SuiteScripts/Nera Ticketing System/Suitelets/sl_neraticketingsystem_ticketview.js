@@ -10,11 +10,10 @@ define([
     'N/redirect', 
     'N/url',
     'N/https',
-     'N/record',
      'SuiteScripts/Nera Ticketing System/lib/data_search_lib',
      'SuiteScripts/Nera Ticketing System/lib/constants_lib.js',
      'SuiteScripts/Nera Ticketing System/lib/helper_lib'
-], function (render, file, search, redirect, url, https,record,searchlib,constants,helperlib) {
+], function (render, file, search, redirect, url, https,searchlib,constants,helperlib) {
 
 
     function htmlContent(link, dataSource) {
@@ -51,24 +50,17 @@ define([
 
     function onGet(context) {
 
-        var objRecord = record.create({
-            type: 'supportcase',
-            defaultValue: {fieldId:'customform', value:"4545"}
-
-        });
-       
-        var allBodyFields = objRecord.getField({fieldId:'custevent_ps_ticketingsystem_userlname'});
-        log.debug("allBodyFields",allBodyFields)
-
         log.debug("chsfgjg",constants)
+       ticketno = context.request.parameters.tranid;
+        
 
         masterDataSource = {
-
+         tno:context.request.parameters.tranid
         }
 
          asidePageContent = htmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,searchlib.getScriptLinks());
-         pageContent = htmlContent('SuiteScripts/Nera Ticketing System/my-app/partials/_content.html',masterDataSource);
-         dataSource = {
+        pageContent = htmlContent('SuiteScripts/Nera Ticketing System/my-app/pages/TicketView.html',masterDataSource);
+        dataSource = {
             asidePageContent : asidePageContent,
             pageContent: pageContent,
             breadcrumbs: "",

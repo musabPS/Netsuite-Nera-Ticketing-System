@@ -174,7 +174,7 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 		</script>
 
 		<!--end::Global Config-->
-
+		
 		<!--begin::Global Theme Bundle(used by all pages) assets/plugins/global/plugins.bundle.js-->
 		<script src="${ds.plugins_bundle_js}"></script>
         <!--begin::Global Theme Bundle(used by all pages) assets/plugins/custom/prismjs/prismjs.bundle.js-->
@@ -188,9 +188,15 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 		<script src="${ds.fullcalendar_bundle_js}"></script>
 
 		<!--end::Page Vendors-->
-
+		
 		<!--begin::Page Scripts(used by this page) assets/js/pages/widgets.js-->
 		<script src="${ds.widgets_js}"></script>
+
+		<script src="${ds.ckeditor_document_bundle_js}"></script>
+		<script src="${ds.ckeditor_document_js}"></script>
+
+		<!--begin::Page Scripts(used by this page) assets/js/pages/features/file-upload/dropzonejs.js-->
+		<script src="${ds.dropzonejs_js}"></script>
 
 		<!--end::Page Scripts-->
 	</body>

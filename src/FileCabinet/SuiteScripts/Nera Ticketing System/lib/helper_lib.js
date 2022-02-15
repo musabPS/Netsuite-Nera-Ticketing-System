@@ -13,6 +13,10 @@
 
      function addAssetsDataSource(datasource){
 
+        datasource.logo1_png = file.load({
+            id: rootfolder+'assets/media/logos/logo1.png'
+        }).url;
+
         datasource.wizard_4_css = file.load({
             id: rootfolder+'assets/css/pages/wizard/wizard-4.css'
         }).url;
@@ -30,6 +34,9 @@
         datasource.style_bundle_css = file.load({
             id: rootfolder+'assets/css/style.bundle.css'
         }).url;
+        datasource.wizard4_js = file.load({
+            id: rootfolder+'assets/js/pages/custom/wizard/wizard-4.js'
+        }).url;
         datasource.plugins_bundle_js = file.load({
             id: rootfolder+'assets/plugins/global/plugins.bundle.js'
         }).url;
@@ -45,9 +52,19 @@
         datasource.widgets_js = file.load({
             id: rootfolder+'assets/js/pages/widgets.js'
         }).url;
+        datasource.ckeditor_document_bundle_js = file.load({
+            id: rootfolder+'assets/plugins/custom/ckeditor/ckeditor-document.bundle.js'
+        }).url;
+        datasource.ckeditor_document_js = file.load({
+            id: rootfolder+'assets/js/pages/features/forms/editors/ckeditor-document.js'
+        }).url;
+        datasource.dropzonejs_js = file.load({
+            id: rootfolder+'assets/js/pages/features/file-upload/dropzonejs.js'
+        }).url;
 
       return datasource;
      }
+
 
     function renderHtmlContent(link, dataSource) {
         var pageRenderer = render.create(); //pageRenderer will combine datasource and template
