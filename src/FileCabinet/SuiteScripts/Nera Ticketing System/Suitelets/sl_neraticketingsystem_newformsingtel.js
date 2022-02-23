@@ -128,6 +128,12 @@ define([
             fieldId: 'custevent_ps_ticketingsystem_netwrok',
             text: postJson.network
         });
+
+        createSupportCase.setText({   
+            fieldId: 'custevent_ps_ticketingsystem_textarea',
+            text: postJson.textarea
+        });
+
         // createSupportCase.setText({   
         //     fieldId: '_ps_ticketingsystem_chassisser',
         //     text: postJson.productgroup

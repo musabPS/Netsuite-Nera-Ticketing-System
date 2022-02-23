@@ -342,6 +342,8 @@
 											<!--end: Wizard Step 4-->
 											<!--begin: Wizard Actions-->
 											<div class="d-flex justify-content-between border-top mt-5 pt-10">
+
+												
 												<div class="mr-2">
 													<button type="button" id="prev-step" class="btn btn-light-primary font-weight-bolder px-10 py-3" data-wizard-type="action-prev">
 													<span class="svg-icon svg-icon-md mr-3">
@@ -357,6 +359,7 @@
 													</span>Previous</button>
 												</div>
 												<div>
+													
 													<button type="button" class="btn btn-success font-weight-bolder px-10 py-3" data-wizard-type="action-submit">Submit
 													<span class="svg-icon svg-icon-md ml-3">
 														<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Check.svg-->
@@ -472,10 +475,32 @@ cancelButtonText: "No, cancel",
 customClass: {
 confirmButton: "btn font-weight-bold btn-primary",
 cancelButton: "btn font-weight-bold btn-default"
+
 }
 }).then(function (result) {
 if (result.value) {
 //	_formEl.submit(); // Submit form
+
+let timerInterval
+Swal.fire({
+  title: 'Data Saving',
+  html: 'Please wait data is Saving',
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading()
+   
+  },
+  willClose: () => {
+   // clearInterval(timerInterval)
+  }
+}).then((result) => {
+  /* Read more about handling dismissals below */
+  if (result.dismiss === Swal.DismissReason.timer) {
+    console.log('I was closed by the timer')
+  }
+})
+
 console.log("checkmusab1")
 var postDataArray=[];
 var MyDiv1 = document.getElementById('kt_quil_1');
@@ -497,7 +522,8 @@ console.log("checkmusab2",MyDiv1)
 		'platform'        : $("#dropdown_platform").val(),
 		'softwareversion' : $("#txt_softwareversion").val(),
 		'subject'         : $("#txt_subject").val(),
-		
+		'textarea'        : MyDiv1
+
 			};
 			console.log("checkdata",postFormData)
 

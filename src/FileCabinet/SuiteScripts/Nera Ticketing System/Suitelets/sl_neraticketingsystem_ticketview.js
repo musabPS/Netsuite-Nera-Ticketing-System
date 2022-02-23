@@ -65,7 +65,6 @@ define([
             pageContent: pageContent,
             breadcrumbs: "",
           }
-         
 
            var finalDatasource = helperlib.addAssetsDataSource(dataSource);
 

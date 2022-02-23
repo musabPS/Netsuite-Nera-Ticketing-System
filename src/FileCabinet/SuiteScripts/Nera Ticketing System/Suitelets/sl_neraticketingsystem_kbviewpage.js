@@ -50,27 +50,24 @@ define([
     }
 
     function onGet(context) {
-
-        var objRecord = record.create({
-            type: 'supportcase',
-            defaultValue: {fieldId:'customform', value:"4545"}
-
-        });
-       
-        var allBodyFields = objRecord.getField({fieldId:'custevent_ps_ticketingsystem_userlname'});
-        log.debug("allBodyFields",allBodyFields)
-
-        log.debug("chsfgjg",constants)
-
+        
+      data =  searchlib.getKBDetail(context.request.parameters.kbid)
+      log.debug("check data",context.request.parameters.kbid)
+      kbTitle=data[0].values.title
+      kbMessage=data[0].values.message
+      kbDescription=data[0].values.description
 
         masterDataSource = {
-
-            Kb_ViewPage:url.resolveScript({ scriptId: constants.SCRIPT.KB_VIEW_PAGE.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
-            create_NewTicketScriptUrl:url.resolveScript({ scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true})
+            kbtitle: `${kbTitle}`,
+            kbMessage: `${kbMessage}`,
+            kbDescription : `${kbDescription}`
         }
 
-         asidePageContent = htmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,searchlib.getScriptLinks());
-         pageContent = htmlContent(constants.URL.HTMLPAGES.PARTIALS.CONTENT,masterDataSource);
+        log.debug("check",masterDataSource)
+
+         asidePageContent = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,searchlib.getScriptLinks());
+         pageContent = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.KB_VIEW_PAGE,masterDataSource);
+         log.debug("check",masterDataSource)
          dataSource = {
             asidePageContent : asidePageContent,
             pageContent: pageContent,
@@ -81,7 +78,7 @@ define([
            var finalDatasource = helperlib.addAssetsDataSource(dataSource);
 
  
-        finalData = htmlContent(constants.URL.HTMLPAGES.INDEX, finalDatasource)   //current file
+        finalData = htmlContent("SuiteScripts/Nera Ticketing System/my-app/index.html", finalDatasource)   //current file
 
         context.response.write(finalData);
     }
