@@ -36,8 +36,6 @@
 
     function onGet(context) {
  
-       
-  
         dataSource = {
             breadcrumbs : "",
             message : ""
@@ -50,98 +48,50 @@
         context.response.write(finalData);
     }
 
-    function onPost(context) {
+    function onPost(context)
+     {
        
-        var userName = context.request.parameters.username;
-        var password = context.request.parameters.password;
+       var parseData= JSON.parse(context.request.body)
+
+        // var userName = context.request.parameters.username;
+        // var password = context.request.parameters.password;
 
         log.debug("POST", "POST WITH RECORDTYPE")
-        log.debug("Postdaa",context.request.parameters)
+        log.debug("Postdaa",context.request.body)
 
-        salesPersonInfo= searchlib.loginSavedSearch(userName,password)
-        log.debug("check",salesPersonInfo)
-
-         if(salesPersonInfo.length>0)
-         {
-             var suiteletURL = url.resolveScript({
-                 scriptId: constants.SCRIPT.INDEX.SCRIPT_ID,
-                 deploymentId: constants.SCRIPT.INDEX.SCRIPT_DEPLOYMENT,
-                 returnExternalUrl: true
-             });
- 
-             redirect.redirect({
-                 url: suiteletURL,
-                 parameters: {
-                     'username':salesPersonInfo[0].values.entityid,
-                     'userid' : salesPersonInfo[0].id
-                 }
-             });
-
-
-             var wordcharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
-             var Token = '';
-             for(var i = 0; i < 20; i++) {
-                Token += wordcharacters[parseInt(Math.random() * wordcharacters.length, 10)];
-             }
+        customerInfo= searchlib.loginSavedSearch(parseData.username,parseData.password)
+        customerInfo=JSON.parse(customerInfo)
+        if(customerInfo.length>0)
+        {
+            log.debug("cc",customerInfo)
            
-            //  var sessionObj = runtime.getCurrentSession();
-            //  sessionObj.set({
-            //     name: salesPersonInfo[0].id,
-            //     value: wordcharacters
-            //  });
+            url=url.resolveScript({
+                scriptId: 'customscript_sl_ticketingsystem_index',
+                deploymentId: "1",
+                returnExternalUrl: true
+              })
+               returnObj={
 
-            //  log.debug('Session object myKey value: ' + sessionObj.get({name: salesPersonInfo[0].id}));
-           
-            //     var  date = new Date();
-            //     var hours = date.getHours();
-            //     var minutes = date.getMinutes();
-            //     var endMinutes = date.getMinutes()+30
-            //     var seconds = date.getSeconds();
-            //     var ampm = hours >= 12 ? 'pm' : 'am';
-            //     hours = hours % 12;
-            //     hours = hours ? hours : 12; // the hour '0' should be '12'
-            //     minutes = minutes < 10 ? '0'+minutes : minutes;
-            //     var strTime = hours + ':' + minutes +':'+seconds+' ' + ampm;
-            //     var endTime = hours + ':' + endMinutes +':'+seconds+' ' + ampm;
+          url:url+"&userid="+customerInfo[0].id+"&username="+customerInfo[0].values.entityid,
+          userDataSaveinCache: customerInfo,
+          success:true
+      }
+              context.response.write(JSON.stringify(returnObj));
 
-            //     var tdate = date.getDate();
-            //     var month = date.getMonth() + 1; // jan = 0
-            //     var year = date.getFullYear();
-            //     if(month.length<2)
-            //     {
-            //         month+=month
-            //     }
-            //     if(tdate<2)
-            //     {
-            //         tdate+=tdate
-            //     }
-            //     //change dateforma
-            //     startDateTime=`${month}/${tdate}/${year} ${strTime}`
+            log.debug("url afyer",url)
+        }
+        else
+        {
+            returnObj=
+            {
+                url:'dfdf',
+                success:false
+            }
+            returnObj=JSON.stringify(returnObj)
+              //log.debug("check",customerInfo)
+             context.response.write(returnObj);
+        }
 
-            //    var createSession=record.create({
-            //        type : 'customrecord_ps_custom_user_sessions',  
-            //   })
-            //   createSession.setValue({fieldId : 'custrecord_ps_customsessions_userid', value:salesPersonInfo[0].id})
-            //   createSession.setValue({fieldId : 'custrecord_ps_customsessions_username', value:salesPersonInfo[0].values.entityid})
-            //   createSession.setValue({fieldId : 'custrecord_ps_customsessions_usertoken', value:Token})
-            //   createSession.setValue({fieldId : 'custrecord_ps_customsessions_startdate', value: new Date(startDateTime)})
-            //   saveID=createSession.save();
-
-         }
-
-         else
-         {
-             pageContent =''
-
-             dataSource = {
-                pageContent : pageContent,
-                breadcrumbs : "",
-                message : "Invalid Login or Password"
-             }
-                //dataSource=""
-                finalData = htmlContent(constants.URL.HTMLPAGES.LOGIN,dataSource)
-                context.response.write(finalData);
-         }
 
     }
 

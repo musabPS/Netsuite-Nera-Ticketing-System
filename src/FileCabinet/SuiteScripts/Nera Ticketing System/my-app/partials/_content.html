@@ -172,6 +172,8 @@
 
 						<script>
 
+       
+
                              $('#txt_search').keyup(function(e)
 							{
 								if(e.keyCode == 13)
@@ -209,14 +211,14 @@
 													divContent=''
 													for(var i=0; i<parseData.length; i++)
 													{
-														divContent+='<h1>'+parseData[i].values["title"]+'</h1>'
-													    divContent+='<p>'+parseData[i].values["message"]+' </p>'
-														pagelink="${ds.Kb_ViewPage}"+"&kbid="+parseData[i].id
-														createNewTicketUrl='${ds.create_NewTicketScriptUrl}&username='
-													    divContent+="<p><button type='button' class='btn btn-danger' onClick='window.open(\"/"+pagelink+"\")'>Read More</button></p>"
+														divContent+='<h1>'+parseData[i].values["solution.title"]+'</h1>'
+													    divContent+='<p>'+parseData[i].values["solution.message"]+' </p>'
+														pagelink="${ds.Kb_ViewPage}"+"&kbid="+parseData[i].values["solution.internalid"][0].value
+														createNewTicketUrl='${ds.create_NewTicketScriptUrl}&username=&type=Create'
+													    divContent+="<p><button type='button' class='btn btn-danger' onClick='window.open(\""+pagelink+"\")'>Read More</button></p>"
 													}
 
-												        divContent+="</br></br><h4><strong>Can't find your answer?</strong> <a href=\"/"+createNewTicketUrl+"\" class='text-danger'>Create New Ticket</a> </h4>"
+												        divContent+="</br></br><h4><strong>Can't find your answer?</strong> <a href=\""+createNewTicketUrl+"\" class='text-danger'>Create New Ticket</a> </h4>"
 								                        $('#div_kb').append('<div class="form-group">'+divContent+"</div>")
 
 													// var parseData="";
@@ -232,14 +234,20 @@
 
 
 // 							var search_terms = ['order'];
+
  
  function showResults(input) {
-	 	var tags = ["Order History","History","Purchases outside the United States","All Orders", "Sales Tax","Sale","Purchases","Status"];
+
+	var tagObject='${ds.searchKeyword}'
+	parseTagObject= JSON.parse(tagObject)
+		console.log("cehck",tagObject)
+
+	 	var tags = ["Order History","History","Purchases outside the United States","All Orders", "Sales Tax","Sale","Purchases","Status","Downloads","Order Information"];
 
    if (input == '') {
 	 return [];
    }
-   autocomplete(document.getElementById("txt_search"), tags);
+   autocomplete(document.getElementById("txt_search"), parseTagObject);
  }
   
 //  function showResults(val) {
@@ -278,24 +286,27 @@ function autocomplete(inp, arr) {
       for (i = 0; i < arr.length; i++) {
         /*check if the item starts with the same letters as the text field value:*/
 		
-        if (arr[i].toUpperCase().includes(val.toUpperCase())) {
+        if (arr[i].values.name.toUpperCase().includes(val.toUpperCase())) {
           /*create a DIV element for each matching element:*/
-		  console.log("consd",arr[i].toUpperCase().includes(val.toUpperCase()))
+		  console.log("consd",arr[i].values.name.toUpperCase().includes(val.toUpperCase()))
           b = document.createElement("DIV");
           /*make the matching letters bold:*/
-          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-          b.innerHTML += arr[i].substr(val.length);
+          b.innerHTML = "<strong>" + arr[i].values.name.substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].values.name.substr(val.length);
           /*insert a input field that will hold the current array item's value:*/
-          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          b.innerHTML += "<input type='hidden' value='" + arr[i].values.name + "' name='" + arr[i].id + "'>";
+
+		
           /*execute a function when someone clicks on the item value (DIV element):*/
           b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
               inp.value = this.getElementsByTagName("input")[0].value;
 			  
+			console.log("checkcname",this.getElementsByTagName("input")[0].name)
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
-			  getKBdata(inp.value)
+			  getKBdata(this.getElementsByTagName("input")[0].name)
           });
           a.appendChild(b);
         }
@@ -359,6 +370,6 @@ function autocomplete(inp, arr) {
   });
 }
 
-  autocomplete(document.getElementById("txt_search"), tags);
+       autocomplete(document.getElementById("txt_search"), tags);
 
 						</script>	

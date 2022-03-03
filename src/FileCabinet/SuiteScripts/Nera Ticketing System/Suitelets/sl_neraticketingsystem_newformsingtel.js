@@ -50,28 +50,92 @@ define([
     }
 
     function onGet(context) {
+        masterDataSource={}
+        var pageContent=""
+           
+        if(context.request.parameters.type=="View")
+        {
+            getTicketData=searchlib.getTicketForEdit(context.request.parameters.id)
+            masterDataSource = {
+                itemList: searchlib.getProductList("check"),
+                type:context.request.parameters.type,
+                ajaxscript: url.resolveScript({scriptId:constants.SCRIPT.SCRIPT_AJAX.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
+                viewURL:  url.resolveScript({scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
+                id: context.request.parameters.id,
 
-        log.debug("chsfgjg",constants.URL)
+
+                //set value to freemarker
+                ticketId           : getTicketData[0].values.casenumber,
+                ticketCreateDate   : getTicketData[0].values.createddate,
+                subject            : getTicketData[0].values.title,
+                firstName          : getTicketData[0].values.custevent_ps_ticketingsystem_userfname,
+                LastName           : getTicketData[0].values.custevent_ps_ticketingsystem_userfname,
+                priority           : getTicketData[0].values.priority[0].value,
+                ccList             : getTicketData[0].values.custevent_ps_ticketingsystem_cclist,
+                email              : getTicketData[0].values.custevent_ps_ticketingsystem_useremail,
+                productGroup       : getTicketData[0].values.custevent_ps_ticketingsystem_productgrp,
+                title              : getTicketData[0].values.title,
+                textArea           : getTicketData[0].values.custevent_ps_ticketingsystem_textarea,
+               // product            : getTicketData[0].values.custevent_ps_ticketingsystem_product[0].text,
+                serialno           : '20937272'
+
+              }
+              pageContent = htmlContent(constants.URL.HTMLPAGES.TicketView_ALL_SAVE_DATA,masterDataSource);
+        }
+        
+        if(context.request.parameters.type=="Edit")
+        {
+            getTicketData=searchlib.getTicketForEdit(context.request.parameters.id)
+            masterDataSource = {
+                itemList: searchlib.getProductList("check"),
+                type:context.request.parameters.type,
+                ajaxscript: url.resolveScript({scriptId:constants.SCRIPT.SCRIPT_AJAX.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
+
+                //set value to freemarker
+                ticketId           : getTicketData[0].values.casenumber,
+                ticketCreateDate   : getTicketData[0].values.createddate,
+                subject            : getTicketData[0].values.title,
+                firstName          : getTicketData[0].values.custevent_ps_ticketingsystem_userfname,
+                LastName           : getTicketData[0].values.custevent_ps_ticketingsystem_userfname,
+                priority           : getTicketData[0].values.priority[0].value,
+                ccList             : getTicketData[0].values.custevent_ps_ticketingsystem_cclist,
+                email              : getTicketData[0].values.custevent_ps_ticketingsystem_useremail,
+                productGroup       : getTicketData[0].values.custevent_ps_ticketingsystem_productgrp,
+                title              : getTicketData[0].values.title,
+                textArea           : getTicketData[0].values.custevent_ps_ticketingsystem_textarea
+              }
+              pageContent = htmlContent(constants.URL.HTMLPAGES.NEWFORMSIGNTEL_Part2,masterDataSource);
+        }
+        if(context.request.parameters.type=="Create") 
+        {
+            masterDataSource = {
+                type:context.request.parameters.type,
+                itemList: searchlib.getProductList("check"),
+                ajaxscript: url.resolveScript({scriptId:constants.SCRIPT.SCRIPT_AJAX.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true})
+              }
+              pageContent = htmlContent(constants.URL.HTMLPAGES.NEWFORMSIGNTEL_Part2,masterDataSource);
+        }
+
+        log.debug("masterDataSource",masterDataSource) 
+
+        var allLinks=searchlib.getScriptLinks()
+
+         asidePageContent = htmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,allLinks);
 
         
 
-        masterDataSource = {
-
-        }
-
-         asidePageContent = htmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,searchlib.getScriptLinks());
-        pageContent = htmlContent('SuiteScripts/Nera Ticketing System/my-app/pages/newFormSingtel.html',masterDataSource);
         dataSource = {
             asidePageContent : asidePageContent,
             pageContent: pageContent,
             breadcrumbs: "",
+            viewTicket :  url.resolveScript({scriptId:constants.SCRIPT.SCRIPT_AJAX.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
           }
          
 
            var finalDatasource = helperlib.addAssetsDataSource(dataSource);
 
  
-        finalData = htmlContent("SuiteScripts/Nera Ticketing System/my-app/index.html", finalDatasource)   //current file
+        finalData = htmlContent(constants.URL.HTMLPAGES.INDEX, finalDatasource)   //current file
 
         context.response.write(finalData);
     }
@@ -84,11 +148,26 @@ define([
 
         log.debug("check",postJson)
         log.debug("check", postJson.fname)
+        var createSupportCase=""
 
-        var createSupportCase = record.create({
-            type: 'supportcase', 
-            isDynamic: true
-        });
+        if(postJson.type=="Create")
+        {
+            var createSupportCase = record.create({
+                type: 'supportcase', 
+                isDynamic: true
+            });
+        }
+
+        if(postJson.type=="Edit")
+        {
+            var createSupportCase = record.load({
+                id: postJson.internalId,
+                type: 'supportcase', 
+                isDynamic: true
+            });
+        }
+
+      
 
         createSupportCase.setValue({   
             fieldId: 'title',
@@ -133,6 +212,10 @@ define([
             fieldId: 'custevent_ps_ticketingsystem_textarea',
             text: postJson.textarea
         });
+        createSupportCase.setValue({   
+            fieldId: 'custevent_ps_ticketingsystem_product',
+            value: postJson.productId
+        });
 
         // createSupportCase.setText({   
         //     fieldId: '_ps_ticketingsystem_chassisser',
@@ -157,7 +240,7 @@ define([
 
 
 
-        saveid =  createSupportCase.save({                  
+        saveid =  createSupportCase.save({                   
             ignoreMandatoryFields: true    
         });
 
@@ -165,7 +248,8 @@ define([
         log.debug("check",objRecord)
 
         data={
-            tranid: objRecord.getValue({fieldId:'casenumber'})
+            tranid: objRecord.getValue({fieldId:'casenumber'}),
+            id: saveid
         }
         log.debug("data",data)
 

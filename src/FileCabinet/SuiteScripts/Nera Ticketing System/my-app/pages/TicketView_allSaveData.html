@@ -1,0 +1,110 @@
+<!--begin::Entry-->
+<div class="d-flex flex-column-fluid">
+
+    <!--begin::Container-->
+     <div class="container-fluid">
+        <div class="card card-custom" id="content">
+            <div class="card-header">
+             <h3 class="card-title">
+              Ticket # : ${ds.ticketId}
+             </h3>
+             <div class="card-toolbar">
+                <a href="${ds.viewURL}&type=Edit&id=${ds.id}" class="btn btn-light-primary font-weight-bolder mr-2">
+                
+                 Edit
+                </a>
+                <div class="btn-group">
+                 <button id="print" type="button" class="btn btn-primary font-weight-bolder" onclick="window.print();">Print</button>
+                 
+                </div>
+               </div>
+            </div>
+         
+            <!--begin::Form-->
+           
+                <div class="card-body">
+                 <div class="form-group row">
+                  <div class="col-lg-4">
+                   <label>Full Name:</label>
+                   <a href="#" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.firstName} ${ds.lastName}</a>
+                  </div>
+                  <div class="col-lg-4">
+                   <label>Email:</label>
+                   <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.email} </a>
+                  </div>
+                  <div class="col-lg-4">
+                   <label>Date:</label>
+                   <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal"> ${ds.ticketCreateDate}</a>
+                  </div>
+                 </div>
+                 <div class="form-group row">
+                    <div class="col-lg-4">
+                     <label>Product:</label>
+                     <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.product}</a>
+                    </div>
+                    <div class="col-lg-4">
+                     <label>Serial No:</label>
+                     <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.serialno} </a>
+                    </div>
+                    <div class="col-lg-4">
+                     <label>Product Group</label>
+                     <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.productGroup} </a>
+                    </div>
+                   </div>
+
+                   <div class="form-group row">
+                    <div class="col-lg-4">
+                     <h4>Subject:</h4>
+                     <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.title}</a>
+                    </div>
+                   
+                   </div>
+
+                   
+
+                   <div class="card card-custom">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Problem
+                        </h3>
+                    </div>
+                    <div id="kt_quil_1" style="height: 500px">
+                        ${ds.textArea}
+                    </div>
+                </div>
+
+               
+                 
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                     <div class="col-lg-9 ml-lg-auto">
+                     
+                     </div>
+                    </div>
+                   </div>
+              
+
+
+
+            <!--end::Form-->
+           </div>
+
+            
+      </div>
+
+    <!--end::Container-->
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+ <script>
+     var editable_elements = document.querySelectorAll("[contenteditable=true]");
+  console.log("conte",editable_elements)
+ editable_elements[0].setAttribute("contenteditable", false);
+    // Class definition
+    var ele = document.querySelectorAll(".ql-tooltip")
+    ele[0].remove()
+
+ </script>
+
+<!--end::Entry-->

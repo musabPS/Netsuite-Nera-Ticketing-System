@@ -64,7 +64,7 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 							<div class="login-form login-signin">
 								<!--begin::Form-->
 
-								<form class="form w-xxl-550px rounded-lg p-20" method="POST">
+								<form class="form w-xxl-550px rounded-lg p-20">
 									<!--begin::Title-->
 									<div class="pb-13 pt-lg-0 pt-5">
 										<h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">Welcome to Nera Ticketing System</h3>
@@ -73,7 +73,7 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 									<!--begin::Form group-->
 									<div class="form-group">
 										<label class="font-size-h6 font-weight-bolder text-dark">Email</label>
-										<input class="form-control form-control-solid h-auto p-6 rounded-lg" type="text" name="username" autocomplete="off" />
+										<input class="form-control form-control-solid h-auto p-6 rounded-lg" type="text" name="username" id ="username" autocomplete="off" />
 									</div>
 									<!--end::Form group-->
 									<!--begin::Form group-->
@@ -81,18 +81,19 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 										<div class="d-flex justify-content-between mt-n5">
 											<label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
 										</div>
-										<input class="form-control form-control-solid h-auto p-6 rounded-lg" type="password" name="password" autocomplete="off" />
+										<input class="form-control form-control-solid h-auto p-6 rounded-lg" type="password" name="password" id="password" autocomplete="off" />
 									</div>
 									<!--end::Form group-->
 									<!--begin::Action-->
 									<span id ="loginfailedtext" class="text-danger font-size-h2 font-weight-bolder">${ds.messege}</span>
 									<div class="pb-lg-0 pb-5">
-										<button type="submit" name="save" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
 										
-									</div>
+									
 								
 									<!--end::Action-->
 								</form>
+								<button type="button" name="save" id="btn_login" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
+							</div>
                                 
 								<!--end::Form-->
 							</div>
@@ -157,25 +158,25 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 			  
 	   $.ajax({
 		   type      : 'POST', //Method type
-		   url       : '/app/site/hosting/scriptlet.nl?script=650&deploy=1&compid=TSTDRV925863&h=9884d6889a67bad5a9b3', //Your form processing file URL
+		   url       : window.location.href, //Your form processing file URL
 		   data      : JSON.stringify(postFormData), //Forms 
 		   contentType: "application/json; charset=utf-8",
 		   success   : function(data) 
 					   {
+						console.log("checkdata",data)
 						parseData=JSON.parse(data)
 
-						console.log("checkdata",parseData.sucess)
+						console.log("checkdata",parseData)
 						
-						if(parseData.sucess)
+						if(parseData.success)
 						{
-							window.location = parseData.url
-							localStorage.setItem("usertoken", parseData.Token);
-
+							
+						 	window.location = parseData.url
+						 //	localStorage.setItem("usertoken", parseData.Token);
 						}
 						else
 						{
 							$("#loginfailedtext").text("Your Password or User Name is incorrect");
-
 						}
 						 
 					   }

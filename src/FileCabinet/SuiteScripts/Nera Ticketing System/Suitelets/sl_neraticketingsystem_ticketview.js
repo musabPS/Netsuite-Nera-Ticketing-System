@@ -54,24 +54,24 @@ define([
        ticketno = context.request.parameters.tranid;
         
 
-        masterDataSource = {
-         tno:context.request.parameters.tranid
-        }
+         masterDataSource = {
+         tno:context.request.parameters.tranid,
+         viewURL:  url.resolveScript({scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
+         id: context.request.parameters.id
+         }
 
-         asidePageContent = htmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,searchlib.getScriptLinks());
-        pageContent = htmlContent('SuiteScripts/Nera Ticketing System/my-app/pages/TicketView.html',masterDataSource);
-        dataSource = {
+         asidePageContent = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,searchlib.getScriptLinks());
+         pageContent = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.TicketView,masterDataSource);
+         dataSource = {
             asidePageContent : asidePageContent,
             pageContent: pageContent,
             breadcrumbs: "",
           }
-
            var finalDatasource = helperlib.addAssetsDataSource(dataSource);
 
- 
-        finalData = htmlContent("SuiteScripts/Nera Ticketing System/my-app/index.html", finalDatasource)   //current file
+          finalData = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.INDEX,finalDatasource)   //current file
 
-        context.response.write(finalData);
+         context.response.write(finalData);
     }
 
     function onPost(context) {

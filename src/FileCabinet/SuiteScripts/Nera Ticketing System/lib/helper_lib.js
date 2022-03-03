@@ -61,6 +61,11 @@
         datasource.dropzonejs_js = file.load({
             id: rootfolder+'assets/js/pages/features/file-upload/dropzonejs.js'
         }).url;
+        datasource.html_table_js = file.load({
+            id: rootfolder+'assets/js/pages/features/ktdatatable/base/html-table.js'
+        }).url;
+
+        datasource.viewticket= url.resolveScript({scriptId: "customscript_sl_ticketingsystem_listing", deploymentId: "1",returnExternalUrl: true})
 
       return datasource;
      }

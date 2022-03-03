@@ -20,6 +20,13 @@
                 TRANSACTION_TABLE : 'SuiteScripts/Nera Ticketing System/my-app/pages/transactionTable.html',
                 INVENTORY_TABLE : 'SuiteScripts/Nera Ticketing System/my-app/pages/inventoryTable.html',
                 CUSTOMER_TABLE : 'SuiteScripts/Nera Ticketing System/my-app/pages/customertable.html',
+                LISTING : 'SuiteScripts/Nera Ticketing System/my-app/pages/listing.html',
+                NEWFORMSIGNTEL : 'SuiteScripts/Nera Ticketing System/my-app/pages/newFormSingtel.html',
+                TicketView_ALL_SAVE_DATA : 'SuiteScripts/Nera Ticketing System/my-app/pages/TicketView_allSaveData.html',
+                TicketView : 'SuiteScripts/Nera Ticketing System/my-app/pages/TicketView.html',
+                NEWFORMSIGNTEL_Part2 : 'SuiteScripts/Nera Ticketing System/my-app/pages/newFormSingtel_2parts.html',
+
+
                 PARTIALS : {
                         EXTRAS : '',
                         CONTENT : 'SuiteScripts/Nera Ticketing System/my-app/partials/_content.html',
@@ -40,6 +47,14 @@
                 CREATE_NEW_TICKET: {
                     SCRIPT_ID: 'customscript_sl_ticketingsystem_nwticket',
                     SCRIPT_DEPLOYMENT: 'customdeploy_sl_neraticketsystem_newtick',
+                },
+                SCRIPT_AJAX: {
+                    SCRIPT_ID: 'customscriptsl_neraticketingsystem_ajaxu',
+                    SCRIPT_DEPLOYMENT: 'customdeploysl_neraticketingsystem_ajaxu',
+                },
+                Ticket_Listing: {
+                    SCRIPT_ID: 'customscript_sl_ticketingsystem_listing',
+                    SCRIPT_DEPLOYMENT: 'customdeploy_sl_ticketingsystem_listing',
                 },
             }
           
