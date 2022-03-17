@@ -108,6 +108,8 @@
 										<!--begin: Wizard Step 1-->
 										<div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
 											<div class="mb-10 font-weight-bold text-dark">Check Product Support & Enter your Detail</div>
+
+											
 											<!--begin::Input-->	
 
 											<div class="form-group">
@@ -156,6 +158,47 @@
 
 												<div class="mb-10 font-weight-bold text-dark">Product Description</div>
 												<!--begin::Input-->
+
+
+												<div class="form-group">
+
+													<label>Select your Product</label>
+													   <select id="dropdown_productlist" name="dropdown_productlist" class="form-control form-control-solid form-control-lg">
+														   <option value="">Select</option>
+														   <#list ds.itemList as item> 
+														   <option value="${item.itemid}">${item.itemName}</option> 
+														   </#list>
+													   </select>
+													   <span class="form-text text-muted">Please Select your Product</span>
+													 </div>
+
+													 <div class="row">
+														<div class="col-xl-6">
+															<!--begin::Input-->
+															<div class="form-group">
+																<label>Select Serial Number</label>
+																<select id="dropdown_producsno" name="dropdown_producsno" class="form-control form-control-solid form-control-lg">
+																	<option value="">Select</option>
+																	<option value="2">2123343223</option> 
+																	<option value="3">5675698444</option> 
+																	<option value="4">3643653343</option> 
+																	<option value="5">32y6897545</option>
+																</select>
+																<span class="form-text text-muted">Please Select S.NO</span>
+															</div>
+															<!--end::Input-->
+														</div>
+														<div class="col-xl-6">
+															<!--begin::Input-->
+															<div class="form-group">
+																<label>warranty Date</label>
+																<input type="date" class="form-control form-control-solid form-control-lg" id="date_warrantydate" name="date_warrantydate"  disabled/>
+																<span class="form-text text-muted">warranty Date</span>
+															</div>
+															<!--end::Input-->
+														</div>
+													</div>
+
 												<div class="row">
 													<div class="col-xl-6">
 														<div class="form-group">
@@ -256,7 +299,7 @@
 														<div class="card card-custom">
 															<div class="card-header">
 																<h3 class="card-title">
-																	Basic Demo
+																	Problem
 																</h3>
 															</div>
 															<div class="card-body">
@@ -268,9 +311,9 @@
 														<!--end::Card-->
 													</div>
 												</div>
+												
 
-
-												<div class="form-group mb-8">
+												<div class="form-group mb-8" style="display: none;">
 													<div class="alert alert-custom alert-default" role="alert">
 													 <div class="alert-icon"><i class="flaticon-warning text-primary"></i></div>
 													 <div class="alert-text">
@@ -302,10 +345,10 @@
 
 													 </div>
 													</div>
-												   </div>
+												   </div> 
 
-													<label class="col-lg-3 col-form-label text-lg-right">Upload Files:</label>
-													<div class="col-lg-9">
+													<label class="col-lg-3 col-form-label text-lg-right" style="display:none">Upload Files:</label>
+													<div class="col-lg-9" style="display: none;">
 														<div class="dropzone dropzone-multi" id="kt_dropzone_4">
 															<div class="dropzone-panel mb-lg-0 mb-2">
 																<a class="dropzone-select btn btn-danger font-weight-bold btn-sm">Attach files</a>
@@ -411,6 +454,7 @@
 	</div>
 	<!--end::Entry-->
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
@@ -537,11 +581,9 @@ let timerInterval
 Swal.fire({
   title: 'Data Saving',
   html: 'Please wait data is Saving',
-  timer: 2000,
   timerProgressBar: true,
   didOpen: () => {
     Swal.showLoading()
-   
   },
   willClose: () => {
    // clearInterval(timerInterval)
@@ -592,11 +634,11 @@ console.log("checkmusab2",MyDiv1)
 		'productId'       : $("#dropdown_productlist").val(),
 
 			};
-			console.log("checkdata",postFormData)
+			console.log("checkdata",MyDiv1.length)
 
 		$.ajax({
 					type      : 'POST', //Method type
-					url       : '/app/site/hosting/scriptlet.nl?script=666&deploy=1&compid=TSTDRV925863&h=f3a67e0fa9e847c3d13d', //Your form processing file URL
+					url       : window.location.href, //Your form processing file URL
 					data      : JSON.stringify(postFormData), //Forms 
 					contentType: "application/json; charset=utf-8",
 					success   : function(data) 
@@ -610,11 +652,15 @@ console.log("checkmusab2",MyDiv1)
 								console.log("parseData",id)
 								if(type=="Create")
 								{
-									window.location = "https://tstdrv925863.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=668&deploy=1&compid=TSTDRV925863&h=ffa9bfde1e0cbcb68951&tranid="+tranid+"&id="+id;
+									window.location = "${ds.ticketView}&tranid="+tranid+"&id="+id;
 								}
 								if(type=="Edit")
-								{
-									window.location=window.location.href
+								{  var url_string = window.location.href
+                                   var url = new URL(url_string);
+                                   var ch    = url.searchParams.set('type','View');
+								   console.log(url)
+									window.location=url.href
+									
 								}
 							}
 				
@@ -869,6 +915,9 @@ jQuery(document).ready(function() {
 KTQuilDemos.init();
 });
 
+               console.log("checproducts","${ds.product}")
+			       $("#dropdown_productlist").val("${ds.product}");
+
                $('#dropdown_productlist').on('change', function()
 		      {
 				var postFormData = { //Fetch form data
@@ -881,7 +930,7 @@ KTQuilDemos.init();
 
 		$.ajax({
 					type      : 'POST', //Method type
-					url       : '${ds.ajaxscript}', //Your form processing file URL
+					url       : '${ds.ajaxScript}', //Your form processing file URL
 					data      : JSON.stringify(postFormData), //Forms 
 					contentType: "application/json; charset=utf-8",
 					success   : function(data) 

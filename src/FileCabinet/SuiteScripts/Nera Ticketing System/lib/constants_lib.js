@@ -12,6 +12,8 @@
 
         URL: {  
             ROOTFOLDER:'SuiteScripts/Nera Ticketing System/my-app/', 
+            SCREENSHOTS_HTMLFOLDER :  'SuiteScripts/Nera Ticketing System/Customer_Ticket_html/',
+
             HTMLPAGES: {
                 INDEX: 'SuiteScripts/Nera Ticketing System/my-app/index.html',
                 LOGIN: 'SuiteScripts/Nera Ticketing System/my-app/pages/Login.html',
@@ -25,7 +27,7 @@
                 TicketView_ALL_SAVE_DATA : 'SuiteScripts/Nera Ticketing System/my-app/pages/TicketView_allSaveData.html',
                 TicketView : 'SuiteScripts/Nera Ticketing System/my-app/pages/TicketView.html',
                 NEWFORMSIGNTEL_Part2 : 'SuiteScripts/Nera Ticketing System/my-app/pages/newFormSingtel_2parts.html',
-
+               
 
                 PARTIALS : {
                         EXTRAS : '',
@@ -55,6 +57,10 @@
                 Ticket_Listing: {
                     SCRIPT_ID: 'customscript_sl_ticketingsystem_listing',
                     SCRIPT_DEPLOYMENT: 'customdeploy_sl_ticketingsystem_listing',
+                },
+                Ticket_VIEW: {
+                    SCRIPT_ID: 'customscript_sl_ticketingsystem_ticketvi',
+                    SCRIPT_DEPLOYMENT: 'customdeploy_sl_ticketingsystem_ticketvi',
                 },
             }
           

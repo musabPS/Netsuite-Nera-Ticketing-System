@@ -25,7 +25,7 @@
 
 									<!--end::Svg Icon-->
 								</span>
-								<span class="menu-text">Dashboard</span>
+								<span class="menu-text">Knowledge Center</span>
 							</a>
 						</li>
 						<li class="menu-section">
@@ -47,7 +47,7 @@
 
 									<!--end::Svg Icon-->
 								</span>
-								<span class="menu-text">New Form-Singtel</span>
+								<span class="menu-text">Create Ticket</span>
 								<i class="menu-arrow"></i>
 							</a>
 							
@@ -88,3 +88,46 @@
 		</div>
 
 		<!--end::Aside-->
+
+		
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+
+ var local=localStorage.getItem('usertoken');
+// 		if(local==null)
+// 		{
+// 			window.location="https://tstdrv925863.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=669&deploy=1&compid=TSTDRV925863&h=b168b2b69c1e09e837f6"
+// 		}
+ 		locaParse=JSON.parse(local)
+
+	var url_string = window.location.href
+	console.log("url",url_string)
+	var url      =   new URL(url_string);
+	var userId   =   locaParse[0].id;
+	var userName =   locaParse[0].values.entityid
+    console.log("urlid",userId)
+
+
+
+
+	$(function() {
+	  $('a[href]').attr('href', function(index, href) {
+		  if(href.includes("script"))
+		  {
+			    var scriptURL = new URL("/"+href);
+		        scriptURL.searchParams.set('userid',userId);
+				scriptURL.searchParams.set('username',userName);
+				
+				$(this).attr("href",scriptURL);
+		  }
+		
+		  return scriptURL;
+	///	var url = new URL(href);
+	//	url.searchParams.set('userid',userid);
+	//	return url;
+	  });
+	})
+	
+	</script>

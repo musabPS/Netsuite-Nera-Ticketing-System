@@ -52,10 +52,33 @@ define([
     function onGet(context) {
         masterDataSource={}
         var pageContent=""
-           
+        var templateFile =""
+        var pageRenderer=""
+
         if(context.request.parameters.type=="View")
         {
             getTicketData=searchlib.getTicketForEdit(context.request.parameters.id)
+
+            // if(context.request.parameters.id>100611)
+            // {
+            //     templateFile = file.load({
+            //         id: 'SuiteScripts/Customer_Ticket_html/'+context.request.parameters.id+"_Ticket.html"
+            //     });
+            //     log.debug("check",templateFile)
+            //     pageRenderer = templateFile.getContents();
+            // }
+            templateFile = file.load({
+                        id: constants.URL.SCREENSHOTS_HTMLFOLDER+""+context.request.parameters.id+"_Ticket.html"
+                    });
+                    pageRenderer = templateFile.getContents();
+            var product=""
+
+            if(getTicketData[0].values.custevent_ps_ticketingsystem_product.length>0)
+            {
+                product=getTicketData[0].values.custevent_ps_ticketingsystem_product[0].text
+            }
+           
+           
             masterDataSource = {
                 itemList: searchlib.getProductList("check"),
                 type:context.request.parameters.type,
@@ -63,6 +86,7 @@ define([
                 viewURL:  url.resolveScript({scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
                 id: context.request.parameters.id,
 
+               
 
                 //set value to freemarker
                 ticketId           : getTicketData[0].values.casenumber,
@@ -75,8 +99,8 @@ define([
                 email              : getTicketData[0].values.custevent_ps_ticketingsystem_useremail,
                 productGroup       : getTicketData[0].values.custevent_ps_ticketingsystem_productgrp,
                 title              : getTicketData[0].values.title,
-                textArea           : getTicketData[0].values.custevent_ps_ticketingsystem_textarea,
-               // product            : getTicketData[0].values.custevent_ps_ticketingsystem_product[0].text,
+                textArea           : pageRenderer,
+                product            : product,
                 serialno           : '20937272'
 
               }
@@ -86,6 +110,22 @@ define([
         if(context.request.parameters.type=="Edit")
         {
             getTicketData=searchlib.getTicketForEdit(context.request.parameters.id)
+
+
+            // if(context.request.parameters.id>100611)
+            // {
+            //     templateFile = file.load({
+            //         id: 'SuiteScripts/Customer_Ticket_html/'+context.request.parameters.id+"_Ticket.html"
+            //     });
+            //     pageRenderer = templateFile.getContents();
+            // }
+            var product=""
+
+            if(getTicketData[0].values.custevent_ps_ticketingsystem_product.length>0)
+            {
+                product=getTicketData[0].values.custevent_ps_ticketingsystem_product[0].value
+            }
+
             masterDataSource = {
                 itemList: searchlib.getProductList("check"),
                 type:context.request.parameters.type,
@@ -102,7 +142,8 @@ define([
                 email              : getTicketData[0].values.custevent_ps_ticketingsystem_useremail,
                 productGroup       : getTicketData[0].values.custevent_ps_ticketingsystem_productgrp,
                 title              : getTicketData[0].values.title,
-                textArea           : getTicketData[0].values.custevent_ps_ticketingsystem_textarea
+                textArea           : pageRenderer,
+                product            : product
               }
               pageContent = htmlContent(constants.URL.HTMLPAGES.NEWFORMSIGNTEL_Part2,masterDataSource);
         }
@@ -111,7 +152,8 @@ define([
             masterDataSource = {
                 type:context.request.parameters.type,
                 itemList: searchlib.getProductList("check"),
-                ajaxscript: url.resolveScript({scriptId:constants.SCRIPT.SCRIPT_AJAX.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true})
+                ajaxScript: url.resolveScript({scriptId:constants.SCRIPT.SCRIPT_AJAX.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
+                ticketView:  url.resolveScript({scriptId:constants.SCRIPT.Ticket_VIEW.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
               }
               pageContent = htmlContent(constants.URL.HTMLPAGES.NEWFORMSIGNTEL_Part2,masterDataSource);
         }
@@ -165,10 +207,18 @@ define([
                 type: 'supportcase', 
                 isDynamic: true
             });
+
+          
+
+
         }
 
-      
+       // Create a file containing text
+       
+       
 
+       
+            
         createSupportCase.setValue({   
             fieldId: 'title',
             value: 'test'
@@ -208,10 +258,10 @@ define([
             text: postJson.network
         });
 
-        createSupportCase.setText({   
-            fieldId: 'custevent_ps_ticketingsystem_textarea',
-            text: postJson.textarea
-        });
+        // createSupportCase.setText({   
+        //     fieldId: 'custevent_ps_ticketingsystem_textarea',
+        //     text: fileObj
+        // });
         createSupportCase.setValue({   
             fieldId: 'custevent_ps_ticketingsystem_product',
             value: postJson.productId
@@ -243,6 +293,19 @@ define([
         saveid =  createSupportCase.save({                   
             ignoreMandatoryFields: true    
         });
+
+        fileObj = file.create({
+            name: saveid+'_Ticket.html',
+            fileType: file.Type.PLAINTEXT,
+            contents: "<html>"+postJson.textarea+"</html>"
+            });
+    
+           fileObj.folder = 7896;
+           id = fileObj.save();
+           fileObj = file.load({
+            id: id
+        }).url
+        log.debug("checkfileid",id)
 
         var objRecord = record.load({type: 'supportcase',id: parseInt(saveid)});
         log.debug("check",objRecord)

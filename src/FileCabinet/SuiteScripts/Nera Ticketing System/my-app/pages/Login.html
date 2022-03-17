@@ -15,6 +15,11 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 	<!--begin::Head-->
 	<head><base href="../../../">
 		<meta charset="utf-8" />
+
+
+		<style>
+
+		</style>
 		<title>Login Page</title>
 		<meta name="description" content="Login page example" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -25,9 +30,7 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 		<link href="/core/media/media.nl?id=36690&c=TSTDRV925863&h=GAKFJ6tCrDGTIyKha0CuPf78hUGl833LARkNHgX_rpnIhzCd&_xt=.css" rel="stylesheet" type="text/css" />
 		<!--end::Page Custom Styles-->
 		<!--begin::Global Theme Styles(used by all pages)-->
-        <link href="/core/media/media.nl?id=38329&c=TSTDRV925863&h=OJujgYLbzsrm0AH_Pyv-uHtCPndgy0zKblSa4Jit1bjhEq-x&_xt=.css" type="text/css" />
-        <!--assets/plugins/custom/prismjs/prismjs.bundle.css-->
-		<link href="/core/media/media.nl?id=38151&c=TSTDRV925863&h=_SH0gaYTNBw7XUA6GnAO5oLMjCV53-oA2mlgIJHMrl8-Ud4f&_xt=.css" rel="stylesheet" type="text/css" />
+      
 		<!--assets/css/style.bundle.css-->
 		<link href="${ds.style_bundle_css}" rel="stylesheet" type="text/css" />
 
@@ -123,6 +126,79 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 			</div>
 			<!--end::Login-->
 		</div>
+	
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<script>
+			$(document).ready(function() {
+	
+				$("#btn_login").click(function() {
+	
+					let timerInterval
+						Swal.fire({
+						title: '',
+						timerProgressBar: true,
+						didOpen: () => {
+							Swal.showLoading()
+						},
+						willClose: () => {
+							clearInterval(timerInterval)
+						}
+						}).then((result) => {
+						/* Read more about handling dismissals below */
+						if (result.dismiss === Swal.DismissReason.timer) {
+							console.log('I was closed by the timer')
+						}
+						})
+	
+			
+			var store=localStorage.getItem("usertoken");
+			console.log(store)
+			var ob=[{
+			item:12345
+			}]
+			   var postDataArray=[];
+			   var postFormData = { //Fetch form data
+			   'username' : $("#username").val(),
+			   'password' : $("#password").val()
+					   };
+					   console.log("checkdata",postFormData)
+				  
+		   $.ajax({
+			   type      : 'POST', //Method type
+			   url       : window.location.href, //Your form processing file URL
+			   data      : JSON.stringify(postFormData), //Forms 
+			   contentType: "application/json; charset=utf-8",
+			   success   : function(data) 
+						{
+							//console.log("checkdata",data)
+							parseData=JSON.parse(data)
+	
+							console.log("checkdata",parseData) 
+							
+							if(parseData.success)
+							{
+								  localStorage.setItem("usertoken", JSON.stringify(parseData.userDataSaveinCache));
+								  localStorage.setItem("hellotoken", parseData.token);
+							      window.location = parseData.url
+							}
+							else
+							{
+								swal.close();
+								$("#loginfailedtext").text("Your Password or User Name is incorrect");
+							}
+							 
+						}
+						   
+		   });
+	   });
+	
+	  
+	  });
+	
+		</script>
 		<!--end::Main-->
 		<script>var HOST_URL = "https://preview.keenthemes.com/keen/theme/tools/preview";</script>
 		<!--begin::Global Config(global config for global JS scripts)-->
@@ -137,57 +213,10 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 		<!--end::Global Theme Bundle-->
 		<!--begin::Page Scripts(used by this page)-->
 		<script src="assets/js/pages/custom/login/login.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script>
-		$(document).ready(function() {
+	
 
-			$("#btn_login").click(function() {
-
-		
-		var store=localStorage.getItem("usertoken");
-		console.log(store)
-		var ob=[{
-		item:12345
-		}]
-		   var postDataArray=[];
-		   var postFormData = { //Fetch form data
-		   'username' : $("#username").val(),
-		   'password' : $("#password").val()
-				   };
-				   console.log("checkdata",postFormData)
-			  
-	   $.ajax({
-		   type      : 'POST', //Method type
-		   url       : window.location.href, //Your form processing file URL
-		   data      : JSON.stringify(postFormData), //Forms 
-		   contentType: "application/json; charset=utf-8",
-		   success   : function(data) 
-					   {
-						console.log("checkdata",data)
-						parseData=JSON.parse(data)
-
-						console.log("checkdata",parseData)
-						
-						if(parseData.success)
-						{
-							
-						 	window.location = parseData.url
-						 //	localStorage.setItem("usertoken", parseData.Token);
-						}
-						else
-						{
-							$("#loginfailedtext").text("Your Password or User Name is incorrect");
-						}
-						 
-					   }
-					   
-	   });
-   });
-
+ 	
   
-  });
-
-	</script>
 
 
 		<!--end::Page Scripts-->

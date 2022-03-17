@@ -54,7 +54,7 @@
             })
 
              log.debug("suiteletlink",suiteletURL)
-           suitelet[scriptslink[i].values["script.scriptid"]]=suiteletURL+"&username="
+           suitelet[scriptslink[i].values["script.scriptid"]]=suiteletURL+"&username="+"&userid="
       }
       
       return suitelet 
@@ -351,18 +351,17 @@
             }),
             search.createColumn({name: "createddate", label: "Date Created"}),
             search.createColumn({name: "custevent_ps_ticketingsystem_casetype", label: "Case Type"}),
-            search.createColumn({name: "product", label: "Product"}),
+            search.createColumn({name: "custevent_ps_ticketingsystem_product", label: "Product"}),
             search.createColumn({name: "title", label: "Subject"}),
             search.createColumn({name: "custevent_ps_ticketingsystem_userfname", label: "User First Name"}),
             search.createColumn({name: "custevent_ps_ticketingsystem_userlname", label: "User Last Name"}),
             search.createColumn({name: "priority", label: "Priority"})
-
          ]
       });
       var isData = supportcaseSearchObj.run();
       var isFinalResult = isData.getRange(0, 999);
       var  parseData = JSON.parse(JSON.stringify(isFinalResult));
-      log.debug("checktable",parseData[0])
+      log.debug("checktable",parseData[30])
 
          return parseData
    }

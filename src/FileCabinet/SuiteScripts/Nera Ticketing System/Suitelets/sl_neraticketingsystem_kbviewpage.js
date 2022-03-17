@@ -75,11 +75,12 @@ define([
             breadcrumbs: "",
           }
          
-
+ 
            var finalDatasource = helperlib.addAssetsDataSource(dataSource);
 
  
-        finalData = htmlContent("SuiteScripts/Nera Ticketing System/my-app/index.html", finalDatasource)   //current file
+        finalData =  helperlib.renderHtmlContent(constants.URL.HTMLPAGES.INDEX,finalDatasource);   //current file
+       
 
         context.response.write(finalData);
     }

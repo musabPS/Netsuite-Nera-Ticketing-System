@@ -16,6 +16,61 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 
 	<!--begin::Head-->
 	<head>
+		
+		
+		
+		<style>
+			/* Center the loader */
+			#loader {
+			  position: absolute;
+			  left: 50%;
+			  top: 50%;
+			  z-index: 1;
+			  width: 120px;
+			  height: 120px;
+			  margin: -76px 0 0 -76px;
+			  border: 16px solid #a1a1a1;
+			  border-radius: 50%;
+			  border-top: 16px solid #F64E60;
+			  -webkit-animation: spin 2s linear infinite;
+			  animation: spin 2s linear infinite;
+			}
+			
+			@-webkit-keyframes spin {
+			  0% { -webkit-transform: rotate(0deg); }
+			  100% { -webkit-transform: rotate(360deg); }
+			}
+			
+			@keyframes spin {
+			  0% { transform: rotate(0deg); }
+			  100% { transform: rotate(360deg); }
+			}
+			
+			/* Add animation to "page content" */
+			.animate-bottom {
+			  position: relative;
+			  -webkit-animation-name: animatebottom;
+			  -webkit-animation-duration: 1s;
+			  animation-name: animatebottom;
+			  animation-duration: 1s
+			}
+			
+			@-webkit-keyframes animatebottom {
+			  from { bottom:-100px; opacity:0 } 
+			  to { bottom:0px; opacity:1 }
+			}
+			
+			@keyframes animatebottom { 
+			  from{ bottom:-100px; opacity:0 } 
+			  to{ bottom:0; opacity:1 }
+			}
+			
+			#myDiv {
+			  display: none;
+			}
+			</style>
+		
+		
 		<base href="">
 		<meta charset="utf-8" />
 		<title>Nera Ticketing System</title>
@@ -47,19 +102,25 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 
 		<!--end::Layout Themes-->
 		<link rel="shortcut icon" href="/core/media/media.nl?id=60536&c=TSTDRV925863&h=JfGzlIM3_XNRn04eFTz6Nf5tb7C5LHaU9WC9ZxdL3SNZDHwi&_xt=.ico" />
+
 	</head>
 
 	<!--end::Head-->
 
 	<!--begin::Body-->
-	<body id="kt_body" class="page-loading-enabled page-loading header-fixed header-mobile-fixed subheader-enabled subheader-fixed subheader-mobile-fixed aside-enabled aside-static page-loading">
-		
 
+
+	<body  id="kt_body" class=" page-loading-enabled page-loading header-fixed header-mobile-fixed subheader-enabled subheader-fixed subheader-mobile-fixed aside-enabled aside-static page-loading" >
+		
+		<div id="loader"></div>
 		<!--begin::Main-->
 
 		<!--[html-partial:include:{"file":"partials/_header-mobile.html"}]/-->
 
 		<!--[html-partial:include:{"file":"partials/_aside.html"}]/-->
+		<div style="display:none;" id="myDiv" class="animate-bottom">
+		
+		  
 		${ds.asidePageContent}
 		<div class="d-flex flex-column flex-root">
 
@@ -107,9 +168,86 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 		<!--[html-partial:include:{"file":"partials/_extras/toolbar.html"}]/-->
 
 		<!--[html-partial:include:{"file":"partials/_extras/offcanvas/demo-panel.html"}]/-->
+	</div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
 		<script>
+
+
+   var url_string = window.location.href
+   var url = new URL(url_string);
+   var ch    = url.searchParams.get('iframe');
+   console.log("chheck",ch)
+   if(ch=="kk")
+    {
+	   
+      var local=localStorage.getItem('usertoken');
+		if(local==null)
+		{
+			window.location="https://tstdrv925863.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=669&deploy=1&compid=TSTDRV925863&h=b168b2b69c1e09e837f6"
+		}
+
+		   var store=localStorage.getItem("hellotoken");
+           console.log(store)
+           var myVar;
+               var postDataArray=[];
+               var postForm = { 
+               'token'         : store
+                       };
+
+                  
+           $.ajax({
+               type      : 'POST', 
+               url       : '/app/site/hosting/scriptlet.nl?script=690&deploy=1&compid=TSTDRV925863&h=1db9f7e436e10075b5d0', 
+               data      : JSON.stringify(postForm), 
+               contentType: "application/json; charset=utf-8",
+               success   : function(data) 
+                           {
+							
+                                parseData=JSON.parse(data)
+                                console.log("data",parseData)
+                                console.log("sucesscccc",parseData.success)
+                               if(parseData.success==true)
+                               {
+                                 window.location=parseData.url
+                               }
+                               if (parseData.success==false)
+                               {
+
+                        
+                               }
+							   
+							    document.getElementById("loader").style.display = "none";
+		                    	document.getElementById("myDiv").style.display = "block";
+                             
+                           }
+                           
+              });
+
+			
+				  myVar = setTimeout(showPage, 4000);
+
+                    console.log("checkload")
+
+				function showPage() {
+					console.log("musab3")
+				  document.getElementById("loader").style.display = "none";
+				  document.getElementById("myDiv").style.display = "block";
+				}
+
+
 			var HOST_URL = "https://preview.keenthemes.com/keen/theme/tools/preview";
+
+     }
+
+		else
+		{
+			document.getElementById("loader").style.display = "none";
+			document.getElementById("myDiv").style.display = "block";
+		}
+
 		</script>
+		
 
 		<!--begin::Global Config(global config for global JS scripts)-->
 		<script>
@@ -198,6 +336,8 @@ License: You must have a valid license purchased only from themes.getbootstrap.c
 		<!--begin::Page Scripts(used by this page) assets/js/pages/features/file-upload/dropzonejs.js-->
 		<script src="${ds.dropzonejs_js}"></script>
 		<script src="${ds.html_table_js}"></script>
+
+	
 
 
 		<!--end::Page Scripts-->
