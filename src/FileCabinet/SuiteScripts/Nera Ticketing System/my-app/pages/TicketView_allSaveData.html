@@ -9,17 +9,20 @@
               Ticket # : ${ds.ticketId}
              </h3>
              <div class="card-toolbar">
+                
+                <div class="btn-group">
+                 <button id="print" type="button" class="btn btn-primary font-weight-bolder mr-2" onclick="window.print();">Print</button>
+                </div>
                 <a href="${ds.viewURL}&type=Edit&id=${ds.id}" class="btn btn-light-primary font-weight-bolder mr-2">
                 
-                 Edit
-                </a>
+                    Edit 
+                   </a>
+                   
                 <div class="btn-group">
-                 <button id="print" type="button" class="btn btn-primary font-weight-bolder" onclick="window.print();">Print</button>
-                 
+                    <button id="btn_delete" type="button" class="btn btn-primary font-weight-bolder ">Delete</button>
                 </div>
                </div>
             </div>
-         
             <!--begin::Form-->
            
                 <div class="card-body">
@@ -104,6 +107,79 @@
     // Class definition
     var ele = document.querySelectorAll(".ql-tooltip")
     ele[0].remove()
+
+
+    console.log("checkajaxscript","${ds.ajaxscript}")
+
+    $( "#btn_delete" ).click(function() 
+    {
+    
+
+        var isAccessToDelete="${ds.isAccessToDelete}"
+
+        console.log("dd",typeof isAccessToDelete)
+
+      
+
+                if(isAccessToDelete=="true")
+                {
+
+                    console.log("ddin",isAccessToDelete)
+                    
+                    var url_string = window.location.href
+                                   var url = new URL(url_string);
+                                   var ticketId   = url.searchParams.get('id');
+                                   var userid     =  url.searchParams.get('userid');
+                                   var username    =  url.searchParams.get('username');
+
+                                  var postFormData = { //Fetch form data
+		                             'ticketInternalID'    : ticketId,
+                                      'actionType'         :  'voidTicket'
+                                   };
+    
+                     $.ajax({
+                                type      : 'POST', //Method type
+                                url       : '${ds.ajaxscript}', //Your form processing file URL
+                                data      : JSON.stringify(postFormData), //Forms 
+                                contentType: "application/json; charset=utf-8",
+                                success   : function(data) 
+                                        {
+
+                                            swal.fire({
+                                                text: "Ticket is Deleted Successfully",
+                                                icon: "success",
+                                                buttonsStyling: false,
+                                                confirmButtonText: "Ok, got it!",
+                                                customClass: {
+                                                    confirmButton: "btn font-weight-bold btn-light-primary"
+                                                }
+                                            })
+
+                                            console.log("checkdata",data)
+                                            parsedata = JSON.parse(data)
+                                            window.location=parsedata.TicketList+'&username='+username+'&userid='+userid
+
+                                        }
+                            
+                        });
+
+                }
+                else
+                {
+                    Swal.fire({
+                            text: "Ticket Already Assigned!.",
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn font-weight-bold btn-primary",
+	                         }
+                    });
+                }
+
+        
+
+    });
 
  </script>
 

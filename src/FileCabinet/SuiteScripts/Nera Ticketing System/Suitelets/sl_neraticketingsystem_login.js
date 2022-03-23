@@ -61,8 +61,68 @@
         log.debug("POST", "POST WITH RECORDTYPE")
         log.debug("Postdaa",context.request.body)
 
-        customerInfo= searchlib.loginSavedSearch(parseData.username,parseData.password)
-        customerInfo=JSON.parse(customerInfo)
+        if(parseData.type=="signup")
+        {
+
+           UserExsist= searchlib.signup_UserCheck(parseData.email)
+           log.debug("checkUSer",UserExsist.length)
+          if(UserExsist.length>0)
+          {
+            log.debug("checkUSer in",UserExsist)
+            returnObj={
+                success:false,  
+              }
+                    context.response.write(JSON.stringify(returnObj));
+
+                    return;
+          }
+
+            log.debug("customer create data",context.request.body)
+
+
+            var createCustomer = record.create({
+                type: 'customer', 
+                isDynamic: true
+            });
+            createCustomer.setValue({   
+                fieldId: 'custentity_ps_ticketingsystem_password',
+                value: parseData.password
+            });
+            createCustomer.setValue({   
+                fieldId: 'isperson',
+                value: "F"
+            });
+            createCustomer.setValue({   
+                fieldId: 'email',
+                value: parseData.email
+            });
+            createCustomer.setValue({   
+                fieldId: 'custentity_ps_neraticketing_accesscheck',
+                value: true
+            });
+            createCustomer.setValue({   
+                fieldId: 'companyname',
+                value:   parseData.firstname+" "+parseData.lastname
+            });
+             
+             saveId  = createCustomer.save();
+
+            log.debug("check",saveId)
+            returnObj={
+          success:true,  
+        }
+              context.response.write(JSON.stringify(returnObj));
+
+
+
+            return;
+        }
+
+
+        if(parseData.type=="login")
+        {
+            customerInfo= searchlib.loginSavedSearch(parseData.username,parseData.password)
+            customerInfo=JSON.parse(customerInfo)
         if(customerInfo.length>0)
         {
            sessionToken= createSession(customerInfo[0].id,customerInfo[0].values.entityid)
@@ -73,7 +133,7 @@
                 deploymentId: "1",
                 returnExternalUrl: true
               })
-               returnObj={
+         returnObj={
 
           url:url+"&userid="+customerInfo[0].id+"&username="+customerInfo[0].values.entityid,
           userDataSaveinCache: customerInfo,
@@ -95,6 +155,11 @@
               //log.debug("check",customerInfo)
              context.response.write(returnObj);
         }
+        return;
+
+        }
+
+        
 
 
     }

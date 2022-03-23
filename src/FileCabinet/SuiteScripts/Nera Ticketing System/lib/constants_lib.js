@@ -27,6 +27,7 @@
                 TicketView_ALL_SAVE_DATA : 'SuiteScripts/Nera Ticketing System/my-app/pages/TicketView_allSaveData.html',
                 TicketView : 'SuiteScripts/Nera Ticketing System/my-app/pages/TicketView.html',
                 NEWFORMSIGNTEL_Part2 : 'SuiteScripts/Nera Ticketing System/my-app/pages/newFormSingtel_2parts.html',
+                KB_SEARCH_PAGE : 'SuiteScripts/Nera Ticketing System/my-app/pages/KB_SearhPage.html',
                
 
                 PARTIALS : {

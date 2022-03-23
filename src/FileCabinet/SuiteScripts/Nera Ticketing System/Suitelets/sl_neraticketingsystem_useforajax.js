@@ -10,10 +10,11 @@ define([
     'N/redirect', 
     'N/url',
     'N/https',
+    'N/record',
      'SuiteScripts/Nera Ticketing System/lib/data_search_lib',
      'SuiteScripts/Nera Ticketing System/lib/constants_lib.js',
      'SuiteScripts/Nera Ticketing System/lib/helper_lib'
-], function (render, file, search, redirect, url, https,searchlib,constants,helperlib) {
+], function (render, file, search, redirect, url, https,record,searchlib,constants,helperlib) {
 
 
     function htmlContent(link, dataSource) {
@@ -60,6 +61,24 @@ define([
         log.debug("POST", "POST WITH RECORDTYPE");
         log.debug("POST", context.request.body);
         parseBody=JSON.parse(context.request.body)
+        if(parseBody.dataType=="User_Profile_Data")
+        {
+
+        }
+        if(parseBody.actionType=="voidTicket")
+        {
+            log.debug("POST voidTicket", context.request.body);
+           // record.delete({ type: 'supportcase', id: parseBody.ticketInternalID });
+            var returnPost={
+                success: true,
+                TicketList:  url.resolveScript({scriptId: constants.SCRIPT.Ticket_Listing.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true})
+
+            }
+            context.response.write(JSON.stringify(returnPost))
+            return;
+        }
+
+
 
         getProductSerialNumber=searchlib.getSerailNumber(parseBody.productid)
         log.debug("check",getProductSerialNumber)

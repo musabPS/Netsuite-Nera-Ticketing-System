@@ -51,7 +51,7 @@ define([
     function onGet(context) {
 
         log.debug("chsfgjg",constants)
-       ticketno = context.request.parameters.tranid;
+       ticketno = context.request.parameters.tranid; 
         
 
          masterDataSource = {

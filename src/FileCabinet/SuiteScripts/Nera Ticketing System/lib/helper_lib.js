@@ -65,7 +65,7 @@
             id: rootfolder+'assets/js/pages/features/ktdatatable/base/html-table.js'
         }).url;
 
-        datasource.viewticket= url.resolveScript({scriptId: "customscript_sl_ticketingsystem_listing", deploymentId: "1",returnExternalUrl: true})
+        datasource.viewticket= url.resolveScript({scriptId: "customscript_ps_neraticketing_kbviewpage", deploymentId: "1",returnExternalUrl: true})+"&pagetype=kbsearch"
 
       return datasource;
      }

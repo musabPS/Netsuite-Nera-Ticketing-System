@@ -44,11 +44,11 @@
         dataSource = helperlib.addAssetsDataSource(dataSource)
 
         //dataSource=""
-        
+        log.debug("cheddd",context.request.parameters.userid)
         masterDataSource = {
-            caseList:searchlib.getCustomersTicket("3M AAA"),
-            viewURL:  url.resolveScript({scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
-            ticketURL:  url.resolveScript({scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true})
+            caseList:searchlib.getCustomersTicket(context.request.parameters.userid),
+            viewURL:  url.resolveScript({scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true})+'&username='+context.request.parameters.username+'&userid='+context.request.parameters.userid,
+            ticketURL:  url.resolveScript({scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true})+'&username='+context.request.parameters.username+'&userid='+context.request.parameters.userid
           }
 
   

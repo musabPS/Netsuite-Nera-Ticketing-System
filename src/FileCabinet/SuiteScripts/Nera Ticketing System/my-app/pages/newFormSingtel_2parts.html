@@ -106,30 +106,35 @@
 									
 
 										<!--begin: Wizard Step 1-->
-										<div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+										<div class="pb-5" data-wizard-type="step-content" data-wizard-state="current" id="profile">
 											<div class="mb-10 font-weight-bold text-dark">Check Product Support & Enter your Detail</div>
 
 											
 											<!--begin::Input-->	
 
-											<div class="form-group">
-												<label>First Name</label>
-												<input type="text"  class="form-control form-control-solid form-control-lg" id="txt_fname" name="txt_fname" placeholder="First Name" value="${ds.firstName}" />
-												<span class="form-text text-muted">Please enter your first name.</span>
+
+											<div class="form-group" id="div_firstname">
+												<label data-toggle="popover" title="First Name" data-html="true" data-content="<code>Please Enter your First Name</code>">First Name</label>'
+	                                        
+
+
+												<input type="text"  class="form-control form-control-solid form-control-lg" id="text_fname" name="txt_fname" placeholder="First Name" value="${ds.firstName}" />
+	                                            <span class="form-text text-muted"></span>
+												
 											</div>
 											<!--end::Input-->
 											<!--begin::Input-->
 											<div class="form-group">
-												<label>Last Name</label>
+												<label data-toggle="popover" title="Last Name" data-html="true" data-content="<code>Please Enter your Last Name</code>">Last Name</label>
 												<input type="text" class="form-control form-control-solid form-control-lg" id="txt_lname" name="txt_lname" placeholder="Last Name" value="${ds.LastName}"  />
-												<span class="form-text text-muted">Please enter your last name.</span>
+												<span class="form-text text-muted"></span>
 											</div>
 											<!--end::Input-->
 											<div class="row">
 												<div class="col-xl-6">
 													<!--begin::Input-->
 													<div class="form-group">
-														<label>CC</label>
+														<label  data-toggle="popover" title="CC List" data-html="true" data-content="Please Enter your CC List use , every email address <code>example@ex.com,example2@ex.com </code>">CC</label>
 														<input type="text" class="form-control form-control-solid form-control-lg" id="txt_cclist" name="cc" placeholder="cc" value="${ds.ccList}" />
 														<span class="form-text text-muted">Please enter CC list .</span>
 													</div>
@@ -138,7 +143,7 @@
 												<div class="col-xl-6">
 													<!--begin::Input-->
 													<div class="form-group">
-														<label>Email</label>
+														<label  data-toggle="popover" title="Email Address" data-html="true" data-content="Your Email address automated populated <code>example@ex.com</code>">Email</label>
 														<input type="email" class="form-control form-control-solid form-control-lg" id="txt_emailaddress" name="email" placeholder="Email" value="${ds.email}" />
 														<span class="form-text text-muted">Please enter your email address.</span>
 													</div>
@@ -162,7 +167,7 @@
 
 												<div class="form-group">
 
-													<label>Select your Product</label>
+													<label  data-toggle="popover" title="Product List" data-html="true" data-content="Please select your Product, serial number list populated accoring to selected product">Select your Product</label>
 													   <select id="dropdown_productlist" name="dropdown_productlist" class="form-control form-control-solid form-control-lg">
 														   <option value="">Select</option>
 														   <#list ds.itemList as item> 
@@ -176,7 +181,7 @@
 														<div class="col-xl-6">
 															<!--begin::Input-->
 															<div class="form-group">
-																<label>Select Serial Number</label>
+																<label data-toggle="popover" title="Serial Number List" data-html="true" data-content="Select your Serial Number">Serial Number</label>
 																<select id="dropdown_producsno" name="dropdown_producsno" class="form-control form-control-solid form-control-lg">
 																	<option value="">Select</option>
 																	<option value="2">2123343223</option> 
@@ -191,7 +196,7 @@
 														<div class="col-xl-6">
 															<!--begin::Input-->
 															<div class="form-group">
-																<label>warranty Date</label>
+																<label data-toggle="popover" title="warranty Date" data-html="true" data-content="">warranty Date</label>
 																<input type="date" class="form-control form-control-solid form-control-lg" id="date_warrantydate" name="date_warrantydate"  disabled/>
 																<span class="form-text text-muted">warranty Date</span>
 															</div>
@@ -202,7 +207,7 @@
 												<div class="row">
 													<div class="col-xl-6">
 														<div class="form-group">
-															<label>Product Group</label>
+															<label data-toggle="popover" title="Product Group" data-html="true" data-content="">Product Group</label>
 															<select id="dropdown_productgroup" name="dropdown_productgroup" class="form-control form-control-solid form-control-lg">
 																<option value="${ds.productGroup}">Select</option>
 																<option value="12 POS">12 POS</option>
@@ -214,7 +219,7 @@
 
 													<div class="col-xl-6">
 														<div class="form-group">
-															<label>Network</label>
+															<label data-toggle="popover" title="Network" data-html="true" data-content="">Network</label>
 															<select name="network" class="form-control form-control-solid form-control-lg" id="dropdown_network" name="dropdown_network" >
 																<option value="">Select</option>
 																<option value="quantz">Quantz</option> 
@@ -229,14 +234,14 @@
 												<div class="row">
 													<div class="col-xl-6">
 														<div class="form-group">
-															<label>Chassis Serial#</label>
+															<label data-toggle="popover" title="Chassis Serial#" data-html="true" data-content="">Chassis Serial#</label>
 															<input type="text" class="form-control form-control-solid form-control-lg" id="txt_chassisserial" name="txt_chassisserial"  placeholder="serial" />
 														</div>
 													</div>
 
 													<div class="col-xl-6">
 														<div class="form-group">
-															<label>Host Name</label>
+															<label data-toggle="popover" title="Host Name" data-html="true" data-content="">Host Name</label>
 															<input type="text" class="form-control form-control-solid form-control-lg" id="txt_hostname" name="txt_hostname" placeholder="hostanme" />
 														</div>
 													</div>
@@ -246,7 +251,7 @@
 												<div class="row">
 													<div class="col-xl-6">
 														<div class="form-group">
-															<label>Case Type</label>
+															<label data-toggle="popover" title="Case Type" data-html="true" data-content="">Case Type</label>
 															<select name="casetype" class="form-control form-control-solid form-control-lg" id="dropdown_casetype" name="dropdown_casetype">
 																<option value="">Select</option>
 																<option value="supportrequest">Support Request</option> 
@@ -256,7 +261,7 @@
 
 													<div class="col-xl-6">
 														<div class="form-group">
-															<label>Priority</label>
+															<label data-toggle="popover" title="Priority" data-html="true" data-content="">Priority</label>
 															<select class="form-control form-control-solid form-control-lg" id="dropdown_priority">
 																<option value="">Select</option>
 																<option value="high">High</option>
@@ -269,7 +274,7 @@
 												<div class="row">
 													<div class="col-xl-6">
 														<div class="form-group">
-															<label>Platform</label>
+															<label data-toggle="popover" title="warranty Date" data-html="true" data-content="">Platform</label>
 															<select class="form-control form-control-solid form-control-lg" id="dropdown_platform" name="dropdown_platform">
 																<option value="">Select</option>
 																<option value="MX960">MX960</option> 
@@ -279,7 +284,7 @@
 
 													<div class="col-xl-6">
 														<div class="form-group">
-															<label>Software Ver</label>
+															<label data-toggle="popover" title="warranty Date" data-html="true" data-content="">Software Ver</label>
 															<input type="text" class="form-control form-control-solid form-control-lg" id="txt_softwareversion" name="txt_softwareversion"  />
 														</div>
 													</div>
@@ -289,7 +294,7 @@
 												
 
 												<div class="form-group">
-													<label>Subject</label>
+													<label data-toggle="popover" title="Subject" data-html="true" data-content=" Write your Problem Area">Subject</label>
 													<input type="text" class="form-control form-control-solid form-control-lg" id="txt_subject" name="txt_subject" value="${ds.title}"/>
 												</div>
 
@@ -463,7 +468,7 @@
 
 	document.getElementById("date_warrantydate")
 	
-		
+		var fieldsarray=""
 
 		 $('#dropdown_producsno').on('change', function()
 		  {
@@ -658,6 +663,8 @@ console.log("checkmusab2",MyDiv1)
 								{  var url_string = window.location.href
                                    var url = new URL(url_string);
                                    var ch    = url.searchParams.set('type','View');
+								    url.searchParams.set('type','View');
+
 								   console.log(url)
 									window.location=url.href
 									
@@ -912,6 +919,37 @@ demo2();
 }();
 
 jQuery(document).ready(function() {
+
+	                 var getUserData=localStorage.getItem('usertoken')
+					 getUserData=JSON.parse(getUserData) 
+					 if(!$('#text_fname').val())
+					 {
+						$('#text_fname').val(getUserData[0].values.firstname)
+					 }
+					 if(!$('#text_lname').val())
+					 {
+						$('#text_lname').val(getUserData[0].values.lastname)
+					 }
+					 if(!$('#txt_emailaddress').val())
+					 {
+						$('#txt_emailaddress').val(getUserData[0].values.email)
+					 }
+
+					 
+
+	// console.log("check fi")
+	//  fieldsarray='${ds.customFields}'
+	// fieldsarray=JSON.parse(fieldsarray)
+	// console.log("check fi",fieldsarray)
+	
+	
+	// html='<label>'+customfield[0].values.custrecord_ps_custom_support_fieldlabel+'</label>'
+	// html+='<input type="text"  class="form-control form-control-solid form-control-lg" id="'+customfield[0].values.custrecord_ps_custom_support_fieldname+'" name="txt_fname" placeholder="'+customfield[0].values.custrecord_ps_support_field_placeholder+'" value="${ds.firstName}" />'
+	// html+='<span class="form-text text-muted">Please enter your first name.</span>'
+	// $('#div_firstname').append(html)
+
+
+
 KTQuilDemos.init();
 });
 

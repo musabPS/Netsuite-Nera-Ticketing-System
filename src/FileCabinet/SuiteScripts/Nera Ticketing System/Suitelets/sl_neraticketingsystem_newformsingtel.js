@@ -57,7 +57,9 @@ define([
 
         if(context.request.parameters.type=="View")
         {
-            getTicketData=searchlib.getTicketForEdit(context.request.parameters.id)
+            getTicketData=searchlib.getTicketForEdit(context.request.parameters.id,context.request.parameters.userid)
+
+            log.debug("checkdd",getTicketData)
 
             // if(context.request.parameters.id>100611)
             // {
@@ -72,21 +74,26 @@ define([
                     });
                     pageRenderer = templateFile.getContents();
             var product=""
+            var isAccessToDelete=true
 
             if(getTicketData[0].values.custevent_ps_ticketingsystem_product.length>0)
             {
                 product=getTicketData[0].values.custevent_ps_ticketingsystem_product[0].text
             }
+            if(getTicketData[0].values.assigned.length>0)  //check ticket is assign or not if not user cant delet
+            {
+                isAccessToDelete=false
+
+            }
+
            
            
             masterDataSource = {
-                itemList: searchlib.getProductList("check"),
+                itemList: searchlib.getProductList("check"), 
                 type:context.request.parameters.type,
                 ajaxscript: url.resolveScript({scriptId:constants.SCRIPT.SCRIPT_AJAX.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
-                viewURL:  url.resolveScript({scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
+                viewURL:  url.resolveScript({scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true})+'&username='+context.request.parameters.username+'&userid='+context.request.parameters.userid,
                 id: context.request.parameters.id,
-
-               
 
                 //set value to freemarker
                 ticketId           : getTicketData[0].values.casenumber,
@@ -101,23 +108,24 @@ define([
                 title              : getTicketData[0].values.title,
                 textArea           : pageRenderer,
                 product            : product,
-                serialno           : '20937272'
+                serialno           : '20937272',
+                isAccessToDelete   : isAccessToDelete
 
               }
-              pageContent = htmlContent(constants.URL.HTMLPAGES.TicketView_ALL_SAVE_DATA,masterDataSource);
+              pageContent = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.TicketView_ALL_SAVE_DATA,masterDataSource);
         }
         
         if(context.request.parameters.type=="Edit")
         {
-            getTicketData=searchlib.getTicketForEdit(context.request.parameters.id)
+            getTicketData=searchlib.getTicketForEdit(context.request.parameters.id,context.request.parameters.userid)
 
 
             // if(context.request.parameters.id>100611)
             // {
-            //     templateFile = file.load({
-            //         id: 'SuiteScripts/Customer_Ticket_html/'+context.request.parameters.id+"_Ticket.html"
-            //     });
-            //     pageRenderer = templateFile.getContents();
+                 templateFile = file.load({
+                    id: constants.URL.SCREENSHOTS_HTMLFOLDER+""+context.request.parameters.id+"_Ticket.html"
+                 });
+                pageRenderer = templateFile.getContents();
             // }
             var product=""
 
@@ -145,7 +153,7 @@ define([
                 textArea           : pageRenderer,
                 product            : product
               }
-              pageContent = htmlContent(constants.URL.HTMLPAGES.NEWFORMSIGNTEL_Part2,masterDataSource);
+              pageContent = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.NEWFORMSIGNTEL_Part2,masterDataSource);
         }
         if(context.request.parameters.type=="Create") 
         {
@@ -153,16 +161,17 @@ define([
                 type:context.request.parameters.type,
                 itemList: searchlib.getProductList("check"),
                 ajaxScript: url.resolveScript({scriptId:constants.SCRIPT.SCRIPT_AJAX.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
-                ticketView:  url.resolveScript({scriptId:constants.SCRIPT.Ticket_VIEW.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
+                ticketView:  url.resolveScript({scriptId:constants.SCRIPT.Ticket_VIEW.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true})+'&username='+context.request.parameters.username+'&userid='+context.request.parameters.userid,
+                customFields:  searchlib.getCustomFields("check")
               }
-              pageContent = htmlContent(constants.URL.HTMLPAGES.NEWFORMSIGNTEL_Part2,masterDataSource);
+              pageContent = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.NEWFORMSIGNTEL_Part2,masterDataSource);
         }
 
         log.debug("masterDataSource",masterDataSource) 
 
         var allLinks=searchlib.getScriptLinks()
 
-         asidePageContent = htmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,allLinks);
+         asidePageContent = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,allLinks);
 
         
 
@@ -177,7 +186,7 @@ define([
            var finalDatasource = helperlib.addAssetsDataSource(dataSource);
 
  
-        finalData = htmlContent(constants.URL.HTMLPAGES.INDEX, finalDatasource)   //current file
+        finalData = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.INDEX, finalDatasource)   //current file
 
         context.response.write(finalData);
     }
@@ -214,10 +223,6 @@ define([
         }
 
        // Create a file containing text
-       
-       
-
-       
             
         createSupportCase.setValue({   
             fieldId: 'title',
@@ -225,7 +230,7 @@ define([
         });
         createSupportCase.setValue({   
             fieldId: 'company',
-            value: 1397
+            value: context.request.parameters.userid
         });
 
         createSupportCase.setText({   
@@ -311,8 +316,10 @@ define([
         log.debug("check",objRecord)
 
         data={
-            tranid: objRecord.getValue({fieldId:'casenumber'}),
-            id: saveid
+            tranid: objRecord.getValue({fieldId:'casenumber'}), 
+            id: saveid,
+            userid: context.request.parameters.userid,
+            username: context.request.parameters.username
         }
         log.debug("data",data)
 

@@ -81,7 +81,10 @@
            name: "entityid",
            sort: search.Sort.ASC, 
            label: "Name"
-        })
+        }),
+        search.createColumn({name: "firstname", label: "First Name"}),
+        search.createColumn({name: "lastname", label: "Last Name"}),
+        search.createColumn({name: "email", label: "Email"})
      ]
   });
    var isData = customerSearchObj.run();
@@ -340,7 +343,8 @@
          type: "supportcase",
          filters:
          [
-            ["company","is","3M AAA"]  
+            ["company.internalid","anyof",userid],   // lkn jb ye krta hn tou display ni hota
+          // ["company","is","3M AAA"],     jb me ye open krta hn data display hojata hy
          ],
          columns:
          [
@@ -361,18 +365,18 @@
       var isData = supportcaseSearchObj.run();
       var isFinalResult = isData.getRange(0, 999);
       var  parseData = JSON.parse(JSON.stringify(isFinalResult));
-      log.debug("checktable",parseData[30])
+     log.debug("checktable",parseData[0])
 
          return parseData
    }
 
-   function getTicketForEdit(internalId)
+   function getTicketForEdit(internalId,userid)
    {
       var supportcaseSearchObj = search.create({
          type: "supportcase",
          filters:
          [
-            ["company","is","3M AAA"], 
+            ["company.internalid","anyof",userid],
             "AND", 
             ["internalid","anyof",internalId]
          ],
@@ -395,8 +399,8 @@
             search.createColumn({name: "custevent_ps_ticketingsystem_productgrp", label: "User Product Group"}),
             search.createColumn({name: "custevent_ps_ticketingsystem_cclist", label: "User CC List"}),
             search.createColumn({name: "custevent_ps_ticketingsystem_textarea", label: "User Text Area"}),
-            search.createColumn({name: "custevent_ps_ticketingsystem_product", label: "Product"})
-
+            search.createColumn({name: "custevent_ps_ticketingsystem_product", label: "Product"}),
+            search.createColumn({name: "assigned", label: "Assigned To"})
          ]
       });
 
@@ -406,6 +410,308 @@
       log.debug("checktable",parseData[0])
       return parseData
 
+   }
+
+   function countAllSatus(userid)
+   {
+      var supportcaseSearchObj = search.create({
+         type: "supportcase",
+         filters:
+         [
+            ["status","anyof","1","5","2"], 
+            "AND", 
+          //  ["company","contains",name]
+          ["company.internalid","anyof",userid]
+         ],
+         columns:
+         [
+            search.createColumn({
+               name: "internalid",
+               summary: "COUNT",
+               label: "Internal ID"
+            }),
+            search.createColumn({
+               name: "status",
+               summary: "GROUP",
+               label: "Status"
+            })
+         ]
+      });
+
+      
+      var isData = supportcaseSearchObj.run();
+      var isFinalResult = isData.getRange(0, 999);
+      var  parseData = JSON.parse(JSON.stringify(isFinalResult));
+      log.debug("checktable",parseData)
+      return parseData
+
+   }
+
+   function ticketsRecentActivites(name)
+   {
+      var supportcaseSearchObj = search.create({
+         type: "supportcase",
+         filters:
+         [
+            ["company","haskeywords",name], 
+            "AND", 
+            ["time.item","noneof","@NONE@"]
+         ],
+         columns:
+         [
+            search.createColumn({
+               name: "casenumber",
+               summary: "GROUP",
+               sort: search.Sort.ASC,
+               label: "Number"
+            }),
+            search.createColumn({
+               name: "item",
+               join: "time",
+               summary: "GROUP",
+               label: "Item"
+            }),
+            search.createColumn({
+               name: "memo",
+               join: "time",
+               summary: "GROUP",
+               label: "Note"
+            }),
+            search.createColumn({
+               name: "status",
+               summary: "GROUP",
+               label: "Status"
+            })
+         ]
+      });
+
+      
+      var isData = supportcaseSearchObj.run();
+      var isFinalResult = isData.getRange(0, 10);
+      var  parseData = JSON.parse(JSON.stringify(isFinalResult));
+     // log.debug("checktable",parseData)
+
+
+     // return parseData
+
+
+
+   }
+
+   function totalTickets(userid)
+   {
+      var supportcaseSearchObj = search.create({
+         type: "supportcase",
+         filters:
+         [
+            ["company.internalid","anyof",userid],
+         ],
+         columns:
+         [
+            search.createColumn({
+               name: "company",
+               summary: "GROUP",
+               label: "Company"
+            }),
+            search.createColumn({
+               name: "internalid",
+               summary: "COUNT",
+               label: "Internal ID"
+            })
+         ]
+      });
+      var isData = supportcaseSearchObj.run();
+      var isFinalResult = isData.getRange(0, 10);
+      var  parseData = JSON.parse(JSON.stringify(isFinalResult));
+   //   log.debug("checktable",parseData)
+
+      return parseData
+
+   }
+
+   function employeeSentOnPerTicket_TicketsProgress(userid)
+   {
+      var supportcaseSearchObj = search.create({
+         type: "supportcase",
+         filters:
+         [
+            ["company.internalid","anyof",userid],
+            "AND", 
+            ["time.employee","noneof","@NONE@"]
+         ],
+         columns:
+         [
+            search.createColumn({
+               name: "employee",
+               join: "time",
+               summary: "GROUP",
+               sort: search.Sort.ASC,
+               label: "Employee"
+            }),
+            search.createColumn({
+               name: "item",
+               join: "time",
+               summary: "GROUP",
+               label: "Item"
+            }),
+            search.createColumn({
+               name: "durationdecimal",
+               join: "time",
+               summary: "SUM",
+               label: "Duration (Decimal)"
+            }),
+            search.createColumn({
+               name: "formulatext",
+               summary: "GROUP",
+               formula: "{time.employee}",
+               label: "employeeName"
+            }),
+             search.createColumn({
+               name: "formulatext",
+               summary: "GROUP",
+               formula: "{time.item}",
+               label: "Formula (Text)"
+            }),
+            search.createColumn({
+               name: "formulanumeric",
+               summary: "SUM",
+               formula: "{time.durationdecimal}",
+               label: "Formula (Numeric)"
+            }),
+           search.createColumn({
+         name: "formulatext",
+         summary: "GROUP",
+         formula: "'Case'||'->'||{number} ||'-'|| {time.item}",
+         label: "Formula (Text)"
+      })
+         ]
+      });
+
+      var isData = supportcaseSearchObj.run();
+      var isFinalResult = isData.getRange(0, 10);
+      var  parseData = JSON.stringify(isFinalResult);
+
+      parseData = parseData.replace(/GROUP/g, '');
+      parseData = parseData.replace(/SUM/g, '');
+      parseData = parseData.replace(/\(/g, "");
+      parseData = parseData.replace(/\)/g, "");
+      parseData= JSON.parse(parseData)
+     // log.debug("checktableemployee",parseData)
+
+      return parseData
+
+   }
+
+   function  casePerDuration_TicketsProgressGraph(userid)
+   {
+      var supportcaseSearchObj = search.create({
+         type: "supportcase",
+         filters:
+         [
+            ["company.internalid","anyof",userid], 
+            "AND", 
+            ["time.employee","noneof","@NONE@"]
+         ],
+         columns:
+         [
+            search.createColumn({
+               name: "durationdecimal",
+               join: "time",
+               summary: "SUM",
+               sort: search.Sort.ASC,
+               label: "Duration (Decimal)"
+            }),
+            search.createColumn({
+               name: "formulanumeric",
+               summary: "SUM",
+               formula: "{time.durationdecimal}",
+               label: "Formula (Numeric)"
+            }),
+            search.createColumn({
+               name: "formulatext",
+               summary: "GROUP",
+               formula: "{number}",
+               label: "Formula (Text)"
+            })
+         ]
+      });
+
+      
+      var isData = supportcaseSearchObj.run();
+      var isFinalResult = isData.getRange(0, 999);
+      var  parseData = JSON.stringify(isFinalResult);
+
+      parseData = parseData.replace(/GROUP/g, '');
+      parseData = parseData.replace(/SUM/g, '');
+      parseData = parseData.replace(/\(/g, "");
+      parseData = parseData.replace(/\)/g, "");
+      parseData= JSON.parse(parseData)
+      log.debug("checktableemployee",parseData)
+
+      return parseData
+
+   }
+   
+   function  getCustomFields(name)
+   {
+      var customrecord_ps_support_fieldsSearchObj = search.create({
+         type: "customrecord_ps_support_fields",
+         filters:
+         [
+         ],
+         columns:
+         [
+            search.createColumn({
+               name: "name",
+               sort: search.Sort.ASC,
+               label: "Name"
+            }),
+            search.createColumn({name: "custrecord_ps_custom_support_fieldlabel", label: "Field Label"}),
+            search.createColumn({name: "custrecord_ps_support_field_placeholder", label: "Place Holder"}),
+            search.createColumn({name: "custrecord_ps_custom_support_fieldname", label: "Support Portal Field Id"}),
+            search.createColumn({name: "custrecord_ps_custom_support_ismandatory", label: "Mandatory"}),
+            search.createColumn({name: "custrecord_ps_support_fieldid", label: "Netsuite Field Id"})
+         ]
+      });
+
+      
+      var isData = customrecord_ps_support_fieldsSearchObj.run();
+      var isFinalResult = isData.getRange(0, 999);
+      var  parseData = JSON.stringify(isFinalResult);
+      // parseData= JSON.parse(parseData)
+      log.debug("checktableemployee",parseData)
+
+      return parseData
+
+   }
+
+   function signup_UserCheck(username)
+   {
+      
+      var customerSearchObj = search.create({
+     type: "customer",
+     filters:
+     [
+        ["email","is",username]
+     ],
+     columns:
+     [
+        search.createColumn({name: "internalid", label: "Internal ID"}),
+        search.createColumn({
+           name: "entityid",
+           sort: search.Sort.ASC, 
+           label: "Name"
+        }),
+        search.createColumn({name: "firstname", label: "First Name"}),
+        search.createColumn({name: "lastname", label: "Last Name"}),
+        search.createColumn({name: "email", label: "Email"})
+     ]
+  });
+   var isData = customerSearchObj.run();
+   var isFinalResult = isData.getRange(0, 999);
+   var  parseData = JSON.parse(JSON.stringify(isFinalResult));
+
+  return parseData
    }
 
     return {
@@ -418,7 +724,15 @@
        getProductList,
        getSerailNumber,
        getCustomersTicket,
-       getTicketForEdit
+       getTicketForEdit,
+       countAllSatus,
+       ticketsRecentActivites,
+       totalTickets,
+       employeeSentOnPerTicket_TicketsProgress,
+       casePerDuration_TicketsProgressGraph,
+       getCustomFields,
+       signup_UserCheck
        
+
     }
 });

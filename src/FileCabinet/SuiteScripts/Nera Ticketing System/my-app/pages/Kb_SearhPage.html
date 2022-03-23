@@ -219,6 +219,11 @@
 								$('#div_kb').empty();
 									divContent=''
 
+									var url = new URL(url_string);
+	                               var userId = url.searchParams.get("userid");
+	                                 var userName =url.searchParams.get("username");
+                                     console.log("urlid",userId)
+
                              var postData=
 							 {
 								 'search_text' : keyword
@@ -233,16 +238,16 @@
 												{
 													//document.getElementById('frequantlyquestions').style.display = 'none';
 													console.log(data)
-													var parseData=JSON.parse(data)
-													console.log(data)
+													var parseData=JSON.parse(data) 
+													console.log("chec",data)
 													
 													divContent=''
 													for(var i=0; i<parseData.length; i++)
 													{
 														divContent+='<h1>'+parseData[i].values["solution.title"]+'</h1>'
 													    divContent+='<p>'+parseData[i].values["solution.message"]+' </p>'
-														pagelink="${ds.Kb_ViewPage}"+"&kbid="+parseData[i].values["solution.internalid"][0].value
-														createNewTicketUrl='${ds.create_NewTicketScriptUrl}&username=&type=Create'
+														pagelink="${ds.Kb_ViewPage}"+"&kbid="+parseData[i].values["solution.internalid"][0].value+"&username="+userName+"&userid="+userId+"&pagetype=kbview"
+														createNewTicketUrl='${ds.create_NewTicketScriptUrl}&type=Create&username='+userName+'&userid='+userId
 													    divContent+="<p><button type='button' class='btn btn-danger' onClick='window.open(\""+pagelink+"\")'>Read More</button></p>"
 													}
 
@@ -269,7 +274,7 @@
  function showResults(input) {
 
 	var tagObject='${ds.searchKeyword}'
-	parseTagObject= JSON.parse(tagObject)
+	parseTagObject= JSON.parse(tagObject) 
 		console.log("cehck",tagObject)
 
 	 	var tags = ["Order History","History","Purchases outside the United States","All Orders", "Sales Tax","Sale","Purchases","Status","Downloads","Order Information"];

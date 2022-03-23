@@ -53,53 +53,72 @@ define([
    function onGet(context) {
 
 
-       const zipCache = cache.getCache({
-           name: 'search_keyword',
-           scope: cache.Scope.PUBLIC
-       });
+//        const zipCache = cache.getCache({
+//            name: 'search_keyword',
+//            scope: cache.Scope.PUBLIC
+//        });
        
-       zipCache.remove({
-        key: 'search_keyword_json',
+//        zipCache.remove({
+//         key: 'search_keyword_json',
         
-        });
+//         });
 
-        zipCacheJson = zipCache.get({
-           key: 'search_keyword_json',
-          loader: zipCodeDatabaseLoader,
-          scope: cache.Scope.PUBLIC,
-          ttl: 18000
-       });
-     function zipCodeDatabaseLoader(context) {
-       var obj = searchlib.getquestionsFromKB("order")
-       log.debug("checalltopics",searchlib.getquestionsFromKB("order"))
-       return obj;
-   }
+//         zipCacheJson = zipCache.get({
+//            key: 'search_keyword_json',
+//           loader: zipCodeDatabaseLoader,
+//           scope: cache.Scope.PUBLIC,
+//           ttl: 18000
+//        });
+//      function zipCodeDatabaseLoader(context) { 
+//        var obj = searchlib.getquestionsFromKB("order")
+//        log.debug("checalltopics",searchlib.getquestionsFromKB("order"))
+//        return obj;
+//    }
 
             //Add additional code 
             //Add additional code 
-                  
-        log.debug("cacheValueonget",zipCacheJson)
+            log.debug("con",context.request.parameters.userid)
+      
+        var tciketStatus=searchlib.countAllSatus(context.request.parameters.userid)
+     
+        countOpenTicket=0
+        countPendingTicket=0
+        countClosedTicket=0
+        for(var i=0; i<tciketStatus.length; i++)
+        {
+            log.debug("status",tciketStatus[i].values["GROUP(status)"][0].text)
+            if(tciketStatus[i].values["GROUP(status)"][0].text=="In Progress"){countOpenTicket=tciketStatus[i].values["COUNT(internalid)"]}
+            if(tciketStatus[i].values["GROUP(status)"][0].text=="Not Started"){countPendingTicket=tciketStatus[i].values["COUNT(internalid)"]}
+            if(tciketStatus[i].values["GROUP(status)"][0].text=="Closed"){countClosedTicket=tciketStatus[i].values["COUNT(internalid)"]}
+        }
 
-
+        recent=searchlib.employeeSentOnPerTicket_TicketsProgress(context.request.parameters.userid)
+        totalTickets=searchlib.totalTickets(context.request.parameters.userid)
+        log.debug("totalTickets",totalTickets)
+        if(totalTickets.length>0){totalTickets=totalTickets[0].values["COUNT(internalid)"]} else{totalTickets=0}
+       
        masterDataSource = {
            Kb_ViewPage:url.resolveScript({ scriptId: constants.SCRIPT.KB_VIEW_PAGE.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
            create_NewTicketScriptUrl:url.resolveScript({ scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
-           searchKeyword: searchlib.getTopicsforSearchKeyword() 
+           searchKeyword: searchlib.getTopicsforSearchKeyword(),
+           openTickets:countOpenTicket,
+           pendingTickets:countPendingTicket,
+           closedTicket:countClosedTicket,
+           totalTickets: totalTickets,
+           ticketProgress:searchlib.employeeSentOnPerTicket_TicketsProgress(context.request.parameters.userid)
         }
 
-        asidePageContent = htmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,searchlib.getScriptLinks());
-        pageContent = htmlContent(constants.URL.HTMLPAGES.PARTIALS.CONTENT,masterDataSource);
+        asidePageContent = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,searchlib.getScriptLinks());
+        pageContent = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.PARTIALS.CONTENT,masterDataSource);
         dataSource = {
            asidePageContent : asidePageContent,
            pageContent: pageContent,
            breadcrumbs: "",
          }
         
-
           var finalDatasource = helperlib.addAssetsDataSource(dataSource);
 
-
-       finalData = htmlContent(constants.URL.HTMLPAGES.INDEX, finalDatasource)   //current file
+       finalData = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.INDEX, finalDatasource)   //current file
 
        context.response.write(finalData);
    }
@@ -117,6 +136,7 @@ define([
     log.debug("cacheon post",zipCacheJson)
        
     //    log.debug("POST", "POST WITH RECORDTYPE");
+    
         log.debug("POST", context.request.body);
         parseData=JSON.parse(context.request.body)
         log.debug(parseData.search_text)
