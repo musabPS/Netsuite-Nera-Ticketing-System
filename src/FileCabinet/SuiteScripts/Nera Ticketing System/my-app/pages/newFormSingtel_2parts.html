@@ -109,47 +109,43 @@
 										<div class="pb-5" data-wizard-type="step-content" data-wizard-state="current" id="profile">
 											<div class="mb-10 font-weight-bold text-dark">Check Product Support & Enter your Detail</div>
 
-											
 											<!--begin::Input-->	
-
-
-											<div class="form-group" id="div_firstname">
-												<label data-toggle="popover" title="First Name" data-html="true" data-content="<code>Please Enter your First Name</code>">First Name</label>'
+											<div class="form-group" id="div_profile"></div>
+												<!-- <label data-toggle="popover" title="First Name" data-html="true" data-content="<code>Please Enter your First Name</code>">First Name</label>'
 	                                        
 
-
 												<input type="text"  class="form-control form-control-solid form-control-lg" id="text_fname" name="txt_fname" placeholder="First Name" value="${ds.firstName}" />
-	                                            <span class="form-text text-muted"></span>
+	                                            <span class="form-text text-muted"></span> -->
 												
-											</div>
+										
 											<!--end::Input-->
 											<!--begin::Input-->
-											<div class="form-group">
+											<!-- <div class="form-group">
 												<label data-toggle="popover" title="Last Name" data-html="true" data-content="<code>Please Enter your Last Name</code>">Last Name</label>
 												<input type="text" class="form-control form-control-solid form-control-lg" id="txt_lname" name="txt_lname" placeholder="Last Name" value="${ds.LastName}"  />
 												<span class="form-text text-muted"></span>
-											</div>
-											<!--end::Input-->
-											<div class="row">
+											</div> -->
+											
+											<!-- <div class="row">
 												<div class="col-xl-6">
-													<!--begin::Input-->
+													
 													<div class="form-group">
 														<label  data-toggle="popover" title="CC List" data-html="true" data-content="Please Enter your CC List use , every email address <code>example@ex.com,example2@ex.com </code>">CC</label>
 														<input type="text" class="form-control form-control-solid form-control-lg" id="txt_cclist" name="cc" placeholder="cc" value="${ds.ccList}" />
 														<span class="form-text text-muted">Please enter CC list .</span>
 													</div>
-													<!--end::Input-->
+												
 												</div>
 												<div class="col-xl-6">
-													<!--begin::Input-->
+												
 													<div class="form-group">
 														<label  data-toggle="popover" title="Email Address" data-html="true" data-content="Your Email address automated populated <code>example@ex.com</code>">Email</label>
 														<input type="email" class="form-control form-control-solid form-control-lg" id="txt_emailaddress" name="email" placeholder="Email" value="${ds.email}" />
 														<span class="form-text text-muted">Please enter your email address.</span>
 													</div>
-													<!--end::Input-->
+													
 												</div>
-											</div>
+											</div> -->
 										</div>
 										<!--end: Wizard Step 1-->
 
@@ -165,21 +161,24 @@
 												<!--begin::Input-->
 
 
-												<div class="form-group">
+												<div class="form-group" style="">
 
 													<label  data-toggle="popover" title="Product List" data-html="true" data-content="Please select your Product, serial number list populated accoring to selected product">Select your Product</label>
 													   <select id="dropdown_productlist" name="dropdown_productlist" class="form-control form-control-solid form-control-lg">
 														   <option value="">Select</option>
-														   <#list ds.itemList as item> 
+														   <!-- <#list ds.itemList as item> 
 														   <option value="${item.itemid}">${item.itemName}</option> 
-														   </#list>
+														   </#list> -->
 													   </select>
 													   <span class="form-text text-muted">Please Select your Product</span>
-													 </div>
+												</div>
 
-													 <div class="row">
+
+													 <div id="div_product"> </div>
+
+													 <!-- <div class="row">
 														<div class="col-xl-6">
-															<!--begin::Input-->
+															
 															<div class="form-group">
 																<label data-toggle="popover" title="Serial Number List" data-html="true" data-content="Select your Serial Number">Serial Number</label>
 																<select id="dropdown_producsno" name="dropdown_producsno" class="form-control form-control-solid form-control-lg">
@@ -191,20 +190,20 @@
 																</select>
 																<span class="form-text text-muted">Please Select S.NO</span>
 															</div>
-															<!--end::Input-->
+															
 														</div>
 														<div class="col-xl-6">
-															<!--begin::Input-->
+															
 															<div class="form-group">
 																<label data-toggle="popover" title="warranty Date" data-html="true" data-content="">warranty Date</label>
 																<input type="date" class="form-control form-control-solid form-control-lg" id="date_warrantydate" name="date_warrantydate"  disabled/>
 																<span class="form-text text-muted">warranty Date</span>
 															</div>
-															<!--end::Input-->
+															
 														</div>
-													</div>
+													</div> -->
 
-												<div class="row">
+												<!-- <div class="row">
 													<div class="col-xl-6">
 														<div class="form-group">
 															<label data-toggle="popover" title="Product Group" data-html="true" data-content="">Product Group</label>
@@ -228,10 +227,10 @@
 
 													</div>
 												  
-												</div>
+												</div> -->
 												
 												
-												<div class="row">
+												<!-- <div class="row">
 													<div class="col-xl-6">
 														<div class="form-group">
 															<label data-toggle="popover" title="Chassis Serial#" data-html="true" data-content="">Chassis Serial#</label>
@@ -246,9 +245,9 @@
 														</div>
 													</div>
 												  
-												</div>
+												</div> -->
 
-												<div class="row">
+												<!-- <div class="row">
 													<div class="col-xl-6">
 														<div class="form-group">
 															<label data-toggle="popover" title="Case Type" data-html="true" data-content="">Case Type</label>
@@ -269,9 +268,9 @@
 															</select>                                                                             </div>
 													</div>
 												  
-												</div>
+												</div> -->
 
-												<div class="row">
+												<!-- <div class="row">
 													<div class="col-xl-6">
 														<div class="form-group">
 															<label data-toggle="popover" title="warranty Date" data-html="true" data-content="">Platform</label>
@@ -289,7 +288,7 @@
 														</div>
 													</div>
 												  
-												</div>
+												</div> -->
 
 												
 
@@ -465,6 +464,18 @@
 
 <script>
 	"use strict";
+	var fieldInformationArray=[]
+
+	if(window.location.href.indexOf("Edit") > -1)
+   {
+	fieldInformationArray='${ds.getFieldsValues}'
+	fieldInformationArray=JSON.parse(fieldInformationArray)
+	console.log("checkNow",fieldInformationArray)
+   }
+	
+	
+	
+	var type=""; 
 
 	document.getElementById("date_warrantydate")
 	
@@ -603,7 +614,7 @@ Swal.fire({
 console.log("checkmusab1")
    var postDataArray=[];
    var MyDiv1 = document.getElementById('kt_quil_1');
-   var type=""; 
+  
    var id="";
    //var windowLocation=window.location
    var ticketInternalId = new URL(window.location).searchParams.get("id");
@@ -618,28 +629,37 @@ console.log("checkmusab1")
 MyDiv1=MyDiv1.innerHTML;
 
 console.log("checkmusab2",MyDiv1)
-  
-		var postFormData = { //Fetch form data
-		'fname'           : $("#txt_fname").val(),
-		'lname'           : $("#txt_lname").val(),
-		'cclist'          : $("#txt_cclist").val(),
-		'email'           : $("#txt_emailaddress").val(),
-		'productgroup'    : $("#dropdown_productgroup").val(),
-		'network'         : $("#dropdown_network").val(),
-		'chassisserial'   : $("#txt_Chassisserial").val(),
-		'hostname'        : $("#txt_hostname").val(), 
-		'casetype'        : $("#dropdown_casetype").val(),
-		'priority'        : $("#dropdown_priority").val(),
-		'platform'        : $("#dropdown_platform").val(),
-		'softwareversion' : $("#txt_softwareversion").val(),
-		'subject'         : $("#txt_subject").val(),
-		'textarea'        : MyDiv1,
-		'type'            : type,
-		'internalId'      : ticketInternalId,
-		'productId'       : $("#dropdown_productlist").val(),
 
-			};
-			console.log("checkdata",MyDiv1.length)
+           console.log("before Value",fieldInformationArray)
+          for(var i=0; i<fieldInformationArray.length; i++)
+		  {
+			fieldInformationArray[i].htmlFieldValue =  $("#"+fieldInformationArray[i].htmlFieldId).val()
+		  }
+		  console.log("all Values on End",fieldInformationArray)
+		 var postFormData = { //Fetch form data
+		// 'fname'           : $("#txt_fname").val(),
+		// 'lname'           : $("#txt_lname").val(),
+		// 'cclist'          : $("#txt_cclist").val(),
+		// 'email'           : $("#txt_emailaddress").val(),
+		// 'productgroup'    : $("#dropdown_productgroup").val(),
+		// 'network'         : $("#dropdown_network").val(),
+		// 'chassisserial'   : $("#txt_Chassisserial").val(),
+		// 'hostname'        : $("#txt_hostname").val(), 
+		// 'casetype'        : $("#dropdown_casetype").val(),
+		// 'priority'        : $("#dropdown_priority").val(),
+		// 'platform'        : $("#dropdown_platform").val(),
+		// 'softwareversion' : $("#txt_softwareversion").val(),
+		 'subject'           : $("#txt_subject").val(),
+		 'textarea'          : MyDiv1,
+		 'type'              : type,
+		 'dynamicFieldsData' :fieldInformationArray,
+		 'internalId'      : ticketInternalId,
+		 'productId'       : $("#dropdown_productlist").val(),
+
+		 	};
+		// 	console.log("checkdata",MyDiv1.length)
+
+
 
 		$.ajax({
 					type      : 'POST', //Method type
@@ -659,18 +679,18 @@ console.log("checkmusab2",MyDiv1)
 								{
 									window.location = "${ds.ticketView}&tranid="+tranid+"&id="+id;
 								}
-								if(type=="Edit")
-								{  var url_string = window.location.href
-                                   var url = new URL(url_string);
-                                   var ch    = url.searchParams.set('type','View');
+								if(type== "Edit")
+								{  
+									var url_string = window.location.href
+                                    var url        = new URL(url_string);
+                                    var ch         = url.searchParams.set('type','View');
 								    url.searchParams.set('type','View');
 
-								   console.log(url)
+								    console.log(url)
 									window.location=url.href
 									
 								}
 							}
-				
 			});
 
 
@@ -913,14 +933,14 @@ return {
 // public functions
 init: function() {
 demo1();
-demo2();
 }
 };
 }();
 
 jQuery(document).ready(function() {
 
-	                 var getUserData=localStorage.getItem('usertoken')
+	                 var getUserData=localStorage.getItem('usertoken'),customfield="",html="",productList="",productListOptions="", customFields_Forms
+					 
 					 getUserData=JSON.parse(getUserData) 
 					 if(!$('#text_fname').val())
 					 {
@@ -937,16 +957,90 @@ jQuery(document).ready(function() {
 
 					 
 
-	// console.log("check fi")
+	 console.log("check fi")
+
 	//  fieldsarray='${ds.customFields}'
-	// fieldsarray=JSON.parse(fieldsarray)
-	// console.log("check fi",fieldsarray)
+	//  fieldsarray=JSON.parse(fieldsarray)
+	//  customfield=fieldsarray
+
+	 customFields_Forms ='${ds.customFields_Forms}'
+	 customFields_Forms =JSON.parse(customFields_Forms)
+	  console.log("check fi",customFields_Forms)
+
+
+	//html+='<div class="row"> <div class="col-xl-6">'
 	
+	//	html+='<div class="row"> '
+
+
+	for(var i=0; i<customFields_Forms.length; i++)
+	{
+			if(i%2 === 0)
+			{
+				html+='<div class="row"> '
+						
+			}
+				html+='<div class="col-xl-6"> <label data-toggle="popover" title="'+customFields_Forms[i].values.custrecord_ps_custom_support_poptitle+'" data-html="true" data-content="'+customFields_Forms[i].values.custrecord_ps_support_field_popuptext+'">'+customFields_Forms[i].values.custrecord_ps_custom_support_fieldlabel+'</label>'
+				html+='<input type="text"  class="form-control form-control-solid form-control-lg" id="'+customFields_Forms[i].values.custrecord_ps_custom_support_fieldname+'" name="txt_fname" placeholder="'+customFields_Forms[i].values.custrecord_ps_support_field_placeholder+'"/>'
+			    html+=' </div>'
+
+				if(window.location.href.indexOf("Create") > -1)
+					{
+						fieldInformationArray.push({
+					 'netsuiteFiledId'    : customFields_Forms[i].values.custrecord_ps_support_fieldid,
+					 'htmlFieldId'        : customFields_Forms[i].values.custrecord_ps_custom_support_fieldname,
+					 'htmlFieldValue'     : ''
+				     })
+					}
+				
+				
+				
+				
+			
+
+			if(i%2 !== 0 || i==customFields_Forms.length-1)
+			{
+				
+				html+='</div>'
+				if(customFields_Forms[i].values.custrecord_ps_support_div_type[0].text=="Profile Div")
+				{
+					$('#div_profile').append(html)
+					html=""
+				}
+		     
+			
+			    if(customFields_Forms[i].values.custrecord_ps_support_div_type[0].text=="Product Related Div")
+				{
+					$('#div_product').append(html)
+					html=""
+				}
+
+			}
+
+			
+			
+	}
+
+		for(var j=0; j<fieldInformationArray.length; j++)
+		{
+			console.log(fieldInformationArray[j].htmlFieldId+"-"+fieldInformationArray[j].htmlFieldValue)
+			$('#'+fieldInformationArray[j].htmlFieldId).val(fieldInformationArray[j].htmlFieldValue)
+			
+		}
+
+
+    console.log("checkfieldsData",fieldInformationArray)
+	productList='${ds.itemList}'
+	productList=JSON.parse(productList)
+	console.log("ff",productList)
+	for(var i=0; i<productList.length; i++)
+	{
+		productListOptions+='<option itemcatvalue="'+productList[i].values["GROUP(item.custitem_vis_itemcat)"][0].value+'" value="'+productList[i].values["GROUP(item.itemid)"]+'">'+productList[i].values["GROUP(item.itemid)"]+' </option>'
+	}
+	$('#dropdown_productlist').append(productListOptions)
+
 	
-	// html='<label>'+customfield[0].values.custrecord_ps_custom_support_fieldlabel+'</label>'
-	// html+='<input type="text"  class="form-control form-control-solid form-control-lg" id="'+customfield[0].values.custrecord_ps_custom_support_fieldname+'" name="txt_fname" placeholder="'+customfield[0].values.custrecord_ps_support_field_placeholder+'" value="${ds.firstName}" />'
-	// html+='<span class="form-text text-muted">Please enter your first name.</span>'
-	// $('#div_firstname').append(html)
+
 
 
 
@@ -956,38 +1050,56 @@ KTQuilDemos.init();
                console.log("checproducts","${ds.product}")
 			       $("#dropdown_productlist").val("${ds.product}");
 
-               $('#dropdown_productlist').on('change', function()
-		      {
+            $('#dropdown_productlist').on('change', function()
+		    {
 				var postFormData = { //Fetch form data
 		                             'productid'    : $("#dropdown_productlist").val(), 
+									 'type'         : 'getFields',
+									 'itemCat'      : $("#dropdown_productlist option:selected").attr("itemcatvalue")
                                    };
 				   var parseSerialNumber="";
 				   var addOptions="";
+				   var productDescriptionHtml=""
 
-			console.log("checkdata",postFormData)
+			     console.log("checkdata",postFormData)
 
-		$.ajax({
-					type      : 'POST', //Method type
-					url       : '${ds.ajaxScript}', //Your form processing file URL
-					data      : JSON.stringify(postFormData), //Forms 
-					contentType: "application/json; charset=utf-8",
-					success   : function(data) 
-							{
-								console.log("checkdata",data)
-								parseSerialNumber = JSON.parse(data)
+			    // $.ajax({
+				// 		type      : 'POST', //Method type
+				// 		url       : '${ds.ajaxScript}', //Your form processing file URL
+				// 		data      : JSON.stringify(postFormData), //Forms 
+				// 		contentType: "application/json; charset=utf-8",
+				// 		success   : function(data) 
+				// 				{
+				// 					console.log("checkdata",data)
+				// 					parseSerialNumber = JSON.parse(data)
+
+				// 					console.log("check",parseSerialNumber[0])
+
+				// 					//'<label data-toggle="popover" title="warranty Date" data-html="true" data-content="">warranty Date</label>'
+
+				// 					for(var i=0; i<parseSerialNumber.length; i++)
+				// 					{
+				// 					productDescriptionHtml+='<div class="row">'
+				// 					productDescriptionHtml+='<div class="col-xl-6">'
+				// 					productDescriptionHtml+='<label data-toggle="popover" title="'+parseSerialNumber[i].values.custrecord_ps_custom_support_poptitle+'" data-html="true" data-content="'+parseSerialNumber[i].values.custrecord_ps_support_field_popuptext+'">'+parseSerialNumber[i].values.custrecord_ps_custom_support_fieldlabel+'</label>'
+				// 					productDescriptionHtml+='<input type="text" class="form-control form-control-solid form-control-lg" placeholder="'+parseSerialNumber[i].values.custrecord_ps_support_field_placeholder+'" name="date_warrantydate" placeholder="'+parseSerialNumber[i].values.custrecord_ps_support_field_placeholder+'" />'
+				// 					productDescriptionHtml+='</div>'
+				// 					productDescriptionHtml+='</div>'
+				// 					}
 								
-								for(var i=0; i <parseSerialNumber.length; i++)
-								{
-									addOptions+="<option value="+parseSerialNumber[i].itemSerailNumber+">"+parseSerialNumber[i].itemSerailNumber+"</option>"
-								}
-							
-								$("#dropdown_producsno").append(addOptions)
 
+				// 					$('#div_product').append(productDescriptionHtml)
+				// 					// for(var i=0; i <parseSerialNumber.length; i++)
+				// 					// {
+				// 					// 	addOptions+="<option value="+parseSerialNumber[i].itemSerailNumber+">"+parseSerialNumber[i].itemSerailNumber+"</option>"
+				// 					// }
+								
+				// 					// $("#dropdown_producsno").append(addOptions)
 
-							}
-				
-			});
+				// 				}
+					
+				// });
                    
-		      })
+		    })
 
 </script>

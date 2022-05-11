@@ -266,24 +266,30 @@
                join: "item",
                summary: "GROUP",
                label: "Internal ID"
+            }),
+            search.createColumn({
+               name: "custitem_vis_itemcat",
+               join: "item",
+               summary: "GROUP",
+               label: "Item Category"
             })
          ]
       });
       
      var isData = transactionSearchObj.run();
      var isFinalResult = isData.getRange(0, 999);
-     var  parseData = JSON.parse(JSON.stringify(isFinalResult));
-     var newObject=[]
-     log.debug("check",parseData)
-     for(var i=0; i<parseData.length; i++)
-     {
-         newObject.push({
-         itemName:parseData[i].values["GROUP(item.itemid)"],
-         itemid:parseData[i].values["GROUP(item.internalid)"][0].value
-      })
-     }
+     var  parseData = JSON.stringify(isFinalResult);
+   //   var newObject=[]
+   //   log.debug("check",parseData)
+   //   for(var i=0; i<parseData.length; i++)
+   //   {
+   //       newObject.push({
+   //       itemName:parseData[i].values["GROUP(item.itemid)"],
+   //       itemid:parseData[i].values["GROUP(item.internalid)"][0].value
+   //    })
+   //   }
 
-     return newObject
+     return parseData
    }
 
    function getSerailNumber(itemid)
@@ -370,8 +376,10 @@
          return parseData
    }
 
-   function getTicketForEdit(internalId,userid)
+   function getTicketForEdit(internalId,userid,coulmns)
    {
+
+      log.debug("check allcolumns",coulmns)
       var supportcaseSearchObj = search.create({
          type: "supportcase",
          filters:
@@ -402,6 +410,55 @@
             search.createColumn({name: "custevent_ps_ticketingsystem_product", label: "Product"}),
             search.createColumn({name: "assigned", label: "Assigned To"})
          ]
+      });
+
+      var isData = supportcaseSearchObj.run();
+      var isFinalResult = isData.getRange(0, 999);
+      var  parseData = JSON.parse(JSON.stringify(isFinalResult));
+      log.debug("checktable",parseData[0])
+      return parseData
+
+   }
+   function getTicketForEdit_ForDynamicFields(internalId,userid,coulmns)
+   {
+
+      log.debug("check allcolumns",coulmns)
+
+        var columnsArray=[
+          "casenumber",
+          "createddate", 
+          "custevent_ps_ticketingsystem_casetype", 
+          "product", 
+          "title", 
+          "assigned",
+          "custevent_ps_ticketingsystem_product",
+          "custevent_ps_ticketingsystem_textarea", 
+          "priority", 
+        ]
+
+        for(var i=0; i<coulmns.length;i++)
+        {
+          columnsArray.push(
+             coulmns[i].values.custrecord_ps_support_fieldid
+             )
+        }
+
+        log.debug("columns Data",columnsArray)
+       
+       //  search.createColumn({name: "custevent_ps_ticketingsystem_userfname", label: "User First Name"})
+
+      var supportcaseSearchObj = search.create({
+
+
+         type: "supportcase",
+         filters:
+         [
+            ["company.internalid","anyof",userid],
+            "AND", 
+            ["internalid","anyof",internalId]
+         ],
+         columns: columnsArray
+         
       });
 
       var isData = supportcaseSearchObj.run();
@@ -599,8 +656,8 @@
      // log.debug("checktableemployee",parseData)
 
       return parseData
-
    }
+
 
    function  casePerDuration_TicketsProgressGraph(userid)
    {
@@ -610,7 +667,7 @@
          [
             ["company.internalid","anyof",userid], 
             "AND", 
-            ["time.employee","noneof","@NONE@"]
+            ["time.duration","isnotempty",""]
          ],
          columns:
          [
@@ -652,6 +709,45 @@
 
    }
    
+   function  getCustomFields_accordingToSelectedItems(itemCat)
+   {
+      var customrecord_ps_support_fieldsSearchObj = search.create({
+         type: "customrecord_ps_support_fields",
+         filters:
+         [
+            ["custrecord_ps_support_item_cat_list","anyof",itemCat]
+         ],
+         columns:
+         [
+            search.createColumn({name: "name",label: "Name"}),
+            search.createColumn({name: "custrecord_ps_custom_support_fieldlabel", label: "Field Label"}),
+            search.createColumn({name: "custrecord_ps_support_field_placeholder", label: "Place Holder"}),
+            search.createColumn({name: "custrecord_ps_custom_support_fieldname", label: "Support Portal Field Id"}),
+            search.createColumn({name: "custrecord_ps_custom_support_ismandatory", label: "Mandatory"}),
+            search.createColumn({name: "custrecord_ps_support_fieldid", label: "Netsuite Field Id"}),
+            search.createColumn({name: "custrecord_ps_custom_support_poptitle", label: "PopUP Title"}),
+            search.createColumn({name: "custrecord_ps_support_field_popuptext", label: "POPUP Detail"}),
+
+            search.createColumn({
+               name: "internalid",
+               sort: search.Sort.ASC,
+               label: "Internal ID"
+            })
+
+
+         ]
+      });
+
+      
+      var isData = customrecord_ps_support_fieldsSearchObj.run();
+      var isFinalResult = isData.getRange(0, 999);
+      var  parseData = JSON.stringify(isFinalResult);
+      // parseData= JSON.parse(parseData)
+      log.debug("checktableemployee",parseData)
+
+      return parseData
+
+   }
    function  getCustomFields(name)
    {
       var customrecord_ps_support_fieldsSearchObj = search.create({
@@ -661,16 +757,23 @@
          ],
          columns:
          [
-            search.createColumn({
-               name: "name",
-               sort: search.Sort.ASC,
-               label: "Name"
-            }),
+            search.createColumn({name: "name",label: "Name"}),
             search.createColumn({name: "custrecord_ps_custom_support_fieldlabel", label: "Field Label"}),
             search.createColumn({name: "custrecord_ps_support_field_placeholder", label: "Place Holder"}),
             search.createColumn({name: "custrecord_ps_custom_support_fieldname", label: "Support Portal Field Id"}),
             search.createColumn({name: "custrecord_ps_custom_support_ismandatory", label: "Mandatory"}),
-            search.createColumn({name: "custrecord_ps_support_fieldid", label: "Netsuite Field Id"})
+            search.createColumn({name: "custrecord_ps_support_fieldid", label: "Netsuite Field Id"}),
+            search.createColumn({name: "custrecord_ps_custom_support_poptitle", label: "PopUP Title"}),
+            search.createColumn({name: "custrecord_ps_support_field_popuptext", label: "POPUP Detail"}),
+            search.createColumn({name: "custrecord_ps_support_div_type", label: "Div Type"}),
+
+            search.createColumn({
+               name: "internalid",
+               sort: search.Sort.ASC,
+               label: "Internal ID"
+            })
+
+
          ]
       });
 
@@ -714,6 +817,67 @@
   return parseData
    }
 
+   function getCustomerforms(customerid)
+   {
+
+      var customrecord_ps_support_customer_formsSearchObj = search.create({
+         type: "customrecord_ps_support_customer_forms",
+         filters:
+         [
+            ["custrecord_ps_support_customerforms_name","anyof",customerid]
+         ],
+         columns:
+         [
+            search.createColumn({
+               name: "name",
+               sort: search.Sort.ASC,
+               label: "Name"
+            }),
+            search.createColumn({name: "custrecord_ps_support_customerform_forms", label: "Forms"})
+         ]
+      });
+
+      var isData = customrecord_ps_support_customer_formsSearchObj.run();
+      var isFinalResult = isData.getRange(0, 999);
+      var  parseData = JSON.parse(JSON.stringify(isFinalResult));
+   
+     return parseData
+   }
+
+   function getFormFields(formId)
+   {
+      var customrecord_ps_support_fieldsSearchObj = search.create({
+         type: "customrecord_ps_support_fields",
+         filters:
+         [
+            ["custrecord_ps_support_forms","anyof",formId,"@NONE@"]
+         ],
+         columns:
+         [
+            search.createColumn({name: "name", label: "Name"}),
+            search.createColumn({name: "custrecord_ps_custom_support_fieldlabel", label: "Field Label"}),
+            search.createColumn({name: "custrecord_ps_support_field_placeholder", label: "Place Holder"}),
+            search.createColumn({name: "custrecord_ps_custom_support_fieldname", label: "Support Portal Field Id"}),
+            search.createColumn({name: "custrecord_ps_custom_support_ismandatory", label: "Mandatory"}),
+            search.createColumn({name: "custrecord_ps_support_fieldid", label: "Netsuite Field Id"}), 
+            search.createColumn({name: "custrecord_ps_custom_support_poptitle", label: "PopUP Title"}),
+            search.createColumn({name: "custrecord_ps_support_field_popuptext", label: "POPUP Detail"}),
+            search.createColumn({
+               name: "internalid",
+               sort: search.Sort.ASC,
+               label: "Internal ID"
+            }),
+            search.createColumn({name: "custrecord_ps_support_div_type", label: "Div Type"})
+         ]
+      });
+
+      var isData = customrecord_ps_support_fieldsSearchObj.run();
+      var isFinalResult = isData.getRange(0, 999);
+      var  parseData = JSON.stringify(isFinalResult);
+   
+     return parseData
+   }
+
     return {
        getScriptLinks : getScriptLinks,
        loginSavedSearch : loginSavedSearch,
@@ -731,7 +895,11 @@
        employeeSentOnPerTicket_TicketsProgress,
        casePerDuration_TicketsProgressGraph,
        getCustomFields,
-       signup_UserCheck
+       signup_UserCheck,
+       getCustomFields_accordingToSelectedItems,
+       getCustomerforms,
+       getFormFields,
+       getTicketForEdit_ForDynamicFields
        
 
     }

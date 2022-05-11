@@ -25,56 +25,59 @@
             </div>
             <!--begin::Form-->
            
-                <div class="card-body">
-                 <div class="form-group row">
-                  <div class="col-lg-4">
-                   <label>Full Name:</label>
-                   <a href="#" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.firstName} ${ds.lastName}</a>
-                  </div>
-                  <div class="col-lg-4">
-                   <label>Email:</label>
-                   <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.email} </a>
-                  </div>
-                  <div class="col-lg-4">
-                   <label>Date:</label>
-                   <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal"> ${ds.ticketCreateDate}</a>
-                  </div>
-                 </div>
-                 <div class="form-group row">
-                    <div class="col-lg-4">
-                     <label>Product:</label>
-                     <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.product}</a>
-                    </div>
-                    <div class="col-lg-4">
-                     <label>Serial No:</label>
-                     <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.serialno} </a>
-                    </div>
-                    <div class="col-lg-4">
-                     <label>Product Group</label>
-                     <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.productGroup} </a>
-                    </div>
-                   </div>
+                <div class="card-body" >
 
-                   <div class="form-group row">
-                    <div class="col-lg-4">
-                     <h4>Subject:</h4>
-                     <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.title}</a>
-                    </div>
-                   
-                   </div>
+                    <div id="dynamicFields">   </div>
+                        <!-- <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>Full Name:</label>
+                                    <a href="#" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.firstName} ${ds.lastName}</a>
+                                </div>
 
-                   
+                                <div class="col-lg-4">
+                                    <label>Email:</label>
+                                    <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.email} </a>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Date:</label>
+                                    <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal"> ${ds.ticketCreateDate}</a>
+                                </div>
+                        </div> -->
+                        <!-- <div class="form-group row">
+                            <div class="col-lg-4">
+                            <label>Product:</label>
+                            <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.product}</a>
+                            </div>
+                            <div class="col-lg-4">
+                            <label>Serial No:</label>
+                            <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.serialno} </a>
+                            </div>
+                            <div class="col-lg-4">
+                            <label>Product Group</label>
+                            <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.productGroup} </a>
+                            </div>
+                        </div> -->
 
-                   <div class="card card-custom">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            Problem
-                        </h3>
-                    </div>
-                    <div id="kt_quil_1" style="height: 500px">
-                        ${ds.textArea}
-                    </div>
-                </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                            <h4>Subject:</h4>
+                            <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.title}</a>
+                            </div>
+                        
+                        </div>
+
+                        
+
+                        <div class="card card-custom">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    Problem
+                                </h3>
+                            </div>
+                            <div id="kt_quil_1" style="height: 500px">
+                                ${ds.textArea}
+                            </div>
+                        </div>
 
                
                  
@@ -101,6 +104,51 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
  <script>
+
+
+  
+ var fieldInformationArray=[]
+ fieldInformationArray='${ds.getFieldsValues}' 
+ fieldInformationArray=JSON.parse(fieldInformationArray)
+ console.log("fieldInformationArray",fieldInformationArray)
+ var dynamicHtml=''
+ var rowFieldCount=0
+
+   for(var i=0; i<fieldInformationArray.length; i++)
+   {
+    if(rowFieldCount == 0 || (rowFieldCount == 1 && i>2))
+	{
+       
+        dynamicHtml+='<div class="form-group row">'
+    }
+   
+        dynamicHtml+='<div class="col-lg-4">'
+            dynamicHtml+=' <label>'+fieldInformationArray[i].htmlFieldLabel+':</label>'
+            dynamicHtml+='<a href="#" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">'+fieldInformationArray[i].htmlFieldValue+'</a>'
+        dynamicHtml+= '</div>'
+   
+        if(rowFieldCount == 2 || ( rowFieldCount == 3 && i>2) )
+        {
+           
+            dynamicHtml+= '</div>'
+            console.log(dynamicHtml)
+            rowFieldCount=0
+
+        }
+
+        rowFieldCount++
+    }
+
+
+    $('#dynamicFields').append(dynamicHtml)
+
+
+  
+
+   
+
+
+
      var editable_elements = document.querySelectorAll("[contenteditable=true]");
   console.log("conte",editable_elements)
  editable_elements[0].setAttribute("contenteditable", false);
@@ -180,6 +228,10 @@
         
 
     });
+
+
+
+
 
  </script>
 

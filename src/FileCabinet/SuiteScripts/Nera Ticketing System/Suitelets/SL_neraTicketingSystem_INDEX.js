@@ -84,7 +84,7 @@ define([
         countOpenTicket=0
         countPendingTicket=0
         countClosedTicket=0
-        for(var i=0; i<tciketStatus.length; i++)
+        for(var i=0; i<tciketStatus.length; i++) 
         {
             log.debug("status",tciketStatus[i].values["GROUP(status)"][0].text)
             if(tciketStatus[i].values["GROUP(status)"][0].text=="In Progress"){countOpenTicket=tciketStatus[i].values["COUNT(internalid)"]}
@@ -92,20 +92,21 @@ define([
             if(tciketStatus[i].values["GROUP(status)"][0].text=="Closed"){countClosedTicket=tciketStatus[i].values["COUNT(internalid)"]}
         }
 
-        recent=searchlib.employeeSentOnPerTicket_TicketsProgress(context.request.parameters.userid)
+        recent=searchlib.casePerDuration_TicketsProgressGraph(context.request.parameters.userid)
         totalTickets=searchlib.totalTickets(context.request.parameters.userid)
-        log.debug("totalTickets",totalTickets)
+        log.debug("totalTickets",recent)
         if(totalTickets.length>0){totalTickets=totalTickets[0].values["COUNT(internalid)"]} else{totalTickets=0}
        
        masterDataSource = {
-           Kb_ViewPage:url.resolveScript({ scriptId: constants.SCRIPT.KB_VIEW_PAGE.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
-           create_NewTicketScriptUrl:url.resolveScript({ scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
-           searchKeyword: searchlib.getTopicsforSearchKeyword(),
-           openTickets:countOpenTicket,
-           pendingTickets:countPendingTicket,
-           closedTicket:countClosedTicket,
-           totalTickets: totalTickets,
-           ticketProgress:searchlib.employeeSentOnPerTicket_TicketsProgress(context.request.parameters.userid)
+           Kb_ViewPage                :  url.resolveScript({ scriptId: constants.SCRIPT.KB_VIEW_PAGE.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
+           create_NewTicketScriptUrl  :  url.resolveScript({ scriptId: constants.SCRIPT.CREATE_NEW_TICKET.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true}),
+           searchKeyword              :  searchlib.getTopicsforSearchKeyword(),
+           openTickets                :  countOpenTicket,
+           pendingTickets             :  countPendingTicket,
+           closedTicket               :  countClosedTicket,
+           totalTickets               :  totalTickets,
+           ticketProgress             :  searchlib.employeeSentOnPerTicket_TicketsProgress(context.request.parameters.userid),
+           ticketProgressGraph        :  searchlib.casePerDuration_TicketsProgressGraph(context.request.parameters.userid)
         }
 
         asidePageContent = helperlib.renderHtmlContent(constants.URL.HTMLPAGES.PARTIALS.ASIDE,searchlib.getScriptLinks());

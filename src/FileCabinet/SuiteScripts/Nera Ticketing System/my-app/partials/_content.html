@@ -1,7 +1,7 @@
 
 <!--begin::Entry-->
 <div class="d-flex flex-column-fluid">
-
+ 
 	<!--begin::Container-->
 	<div class="container">
 
@@ -1397,30 +1397,17 @@
 
 						<!--begin::Chart-->
 						<div class="progress-vertical min-h-150px flex-grow-1 border-bottom">
+
+
+							<#list ds.ticketProgressGraph as element> 
 							<div class="text-center mr-1">
-								<div class="progress bg-light-primary mb-4 mr-0 rounded-bottom-0" data-toggle="tooltip" title="40%">
-									<div class="progress-bar bg-primary w-50px rounded-bottom-0" role="progressbar" style="height: 40%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<span class="font-weight-bold font-size-lg text-muted">Q1</span>
-							</div>
-							<div class="text-center mx-1">
-								<div class="progress bg-light-primary mb-4 mr-0 rounded-bottom-0" data-toggle="tooltip" title="65%">
-									<div class="progress-bar bg-primary w-50px rounded-bottom-0" role="progressbar" style="height: 65%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<span class="font-weight-bold font-size-lg text-muted">Q2</span>
-							</div>
-							<div class="text-center mx-1">
-								<div class="progress bg-light-primary mb-4 mr-0 rounded-bottom-0" data-toggle="tooltip" title="50%">
-									<div class="progress-bar bg-primary w-50px rounded-bottom-0" role="progressbar" style="height: 50%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<span class="font-weight-bold font-size-lg text-muted">Q3</span>
-							</div>
-							<div class="text-center ml-1">
-								<div class="progress bg-light-primary mb-4 mr-0 rounded-bottom-0" data-toggle="tooltip" title="80%">
+								<div class="progress bg-light-primary mb-4 mr-0 rounded-bottom-0" data-toggle="tooltip" title=${element.values.formulanumeric}>
 									<div class="progress-bar bg-primary w-50px rounded-bottom-0" role="progressbar" style="height: 80%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
-								<span class="font-weight-bold font-size-lg text-muted">Q4</span>
+								<span class="font-weight-bold font-size-lg text-muted">${element.values.formulatext}</span>
 							</div>
+							</#list>
+
 						</div>
 
 						<!--end::Chart-->

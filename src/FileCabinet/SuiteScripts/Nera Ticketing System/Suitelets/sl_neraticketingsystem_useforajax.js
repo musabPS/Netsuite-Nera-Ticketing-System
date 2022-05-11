@@ -79,6 +79,12 @@ define([
         }
 
 
+        if(parseBody.type=="getFields")
+        {
+            getProductSerialNumber=searchlib.getCustomFields_accordingToSelectedItems(parseBody.itemCat)
+            context.response.write(getProductSerialNumber);
+            return
+        }
 
         getProductSerialNumber=searchlib.getSerailNumber(parseBody.productid)
         log.debug("check",getProductSerialNumber)

@@ -26,7 +26,7 @@
 									<!--end::Svg Icon-->
 								</span>
 								<span class="menu-text">DashBoard</span>
-							</a>
+							</a> 
 						</li>
 						<li class="menu-section">
 							<h4 class="menu-text">Custom</h4>
@@ -107,30 +107,23 @@
 	var url      =   new URL(url_string);
 	var userId   =   locaParse[0].id;
 	var userName =   locaParse[0].values.entityid
-    console.log("urlid",userId)
+   
 
 
-     console.log("dd","${ds.CUSTOMSCRIPT_SL_TICKETINGSYSTEM_INDEX}")
+     
 
 	var url_string = window.location.href
-	console.log("url",url_string)
 	var url = new URL(url_string);
 	var userId = url.searchParams.get("userid");
 	var userName =url.searchParams.get("username");
-    console.log("urlid",userId)
 	$(function() {
 	  $('a[href]').attr('href', function(index, href) {
 		  if(href.includes("script"))
 		  {
-			console.log("scriptURL",href)
 			    var scriptURL = new URL("https://tstdrv925863.extforms.netsuite.com/"+href);
-				console.log("scriptURL",scriptURL)
 		        scriptURL.searchParams.set('userid',userId);
 				scriptURL.searchParams.set('username',userName);
-				console.log("checklog",scriptURL.pathname+scriptURL.search)
-				console.log("checklog",scriptURL)
 				//scriptURL=scriptURL.replace('https://tstdrv925863.extforms.netsuite.com/',' ')
-				
 				$(this).attr("href",scriptURL.search);
 		  }
 		
