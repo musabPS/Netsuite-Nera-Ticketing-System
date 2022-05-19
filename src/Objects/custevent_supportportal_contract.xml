@@ -1,21 +1,16 @@
-<entitycustomfield scriptid="custentity_supportportal_remaining_hours">
-  <accesslevel>1</accesslevel>
-  <appliestocontact>F</appliestocontact>
-  <appliestocustomer>T</appliestocustomer>
-  <appliestoemployee>F</appliestoemployee>
-  <appliestogenericrsrc>F</appliestogenericrsrc>
-  <appliestogroup>F</appliestogroup>
-  <appliestoothername>F</appliestoothername>
-  <appliestopartner>F</appliestopartner>
-  <appliestopricelist>F</appliestopricelist>
-  <appliestoproject>F</appliestoproject>
-  <appliestoprojecttemplate>F</appliestoprojecttemplate>
-  <appliestostatement>F</appliestostatement>
-  <appliestovendor>F</appliestovendor>
-  <appliestowebsite>F</appliestowebsite>
+<crmcustomfield scriptid="custevent_supportportal_contract">
+  <accesslevel>2</accesslevel>
+  <appliesperkeyword>F</appliesperkeyword>
+  <appliestocampaign>F</appliestocampaign>
+  <appliestocase>T</appliestocase>
+  <appliestoevent>F</appliestoevent>
+  <appliestoissue>F</appliestoissue>
+  <appliestophonecall>F</appliestophonecall>
+  <appliestoprojecttask>F</appliestoprojecttask>
+  <appliestosolution>F</appliestosolution>
+  <appliestotask>F</appliestotask>
   <applyformatting>F</applyformatting>
   <availableexternally>F</availableexternally>
-  <availabletosso>F</availabletosso>
   <checkspelling>F</checkspelling>
   <defaultchecked>F</defaultchecked>
   <defaultselection></defaultselection>
@@ -26,28 +21,29 @@
   <displaywidth></displaywidth>
   <dynamicdefault></dynamicdefault>
   <encryptatrest>F</encryptatrest>
-  <fieldtype>TEXT</fieldtype>
+  <fieldtype>SELECT</fieldtype>
   <globalsearch>F</globalsearch>
   <help></help>
   <isformula>F</isformula>
   <ismandatory>F</ismandatory>
   <isparent>F</isparent>
-  <label>Remaining Hours Available</label>
+  <label>Support Contract</label>
   <linktext></linktext>
   <maxlength></maxlength>
   <maxvalue></maxvalue>
   <minvalue></minvalue>
-  <onparentdelete></onparentdelete>
+  <onparentdelete>SET_NULL</onparentdelete>
   <parentsubtab></parentsubtab>
   <searchcomparefield></searchcomparefield>
   <searchdefault></searchdefault>
   <searchlevel>2</searchlevel>
-  <selectrecordtype></selectrecordtype>
-  <showhierarchy>F</showhierarchy>
+  <selectrecordtype>-6</selectrecordtype>
+  <showhierarchy>T</showhierarchy>
   <showinlist>F</showinlist>
+  <showissuechanges>F</showissuechanges>
   <sourcefilterby></sourcefilterby>
   <sourcefrom></sourcefrom>
   <sourcelist></sourcelist>
   <storevalue>T</storevalue>
   <subtab></subtab>
-</entitycustomfield>
+</crmcustomfield>
