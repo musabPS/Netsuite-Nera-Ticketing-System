@@ -66,7 +66,7 @@
       
       var customerSearchObj = search.create({
      type: "customer",
-     filters:
+     filters:   
      [
         ["custentity_ps_neraticketing_accesscheck","is","T"], 
         "AND", 
