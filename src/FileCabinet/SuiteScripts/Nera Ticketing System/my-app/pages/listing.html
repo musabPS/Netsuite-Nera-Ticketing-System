@@ -101,7 +101,8 @@
                                                             <!--end::Search Form-->
                                                             <!--end: Search Form-->
                                                             <!--begin: Datatable-->
-                                                            <table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable">
+                                                            <!-- <table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable"> -->
+                                                                <table class="table table-responsive" id="kt_datatable" style="display: none;">
                                                                 <thead>
                                                                     <tr>
                                                                         <th title="Field #1">Ticket ID</th>
@@ -116,8 +117,8 @@
                                                                 </thead>
                                                                <tbody>
                                                                 <#list ds.caseList as case> 
-                                                                <tr>
-                                                                    <td>  <a href="${ds.ticketURL}&id=${case.id}&type=View" class="btn btn-light-primary font-weight-bold">${case.values.casenumber}</a></td>
+                                                                <tr style = "text-align : centre;">
+                                                                    <td>  <a href="${ds.ticketURL}&id=${case.id}&type=View" class="btn text-hover-primary custom_hover font-weight-bold">${case.values.casenumber}</a></td>
                                                                     <td>${case.values.createddate}</td>
                                                                     <td>${case.values.title}</td>
                                                                     <td>${case.values.custevent_ps_ticketingsystem_product.text}</td>
@@ -125,7 +126,7 @@
                                                                     <td>${case.values.serialno}</td>
                                                                     <td>${case.values.priority.text}</td>
 
-                                                                    <td><a href="${ds.ticketURL}&id=${case.id}&type=Edit" class="btn btn-light-danger font-weight-bold mr-2"> Edit</a></td>
+                                                                    <td ><a href="${ds.ticketURL}&id=${case.id}&type=Edit" class="btn p-0 m-0 text-hover-primary custom_hover font-weight-bold "> Edit</a></td>
                                                                 </tr>
 																</#list>
                                                                    

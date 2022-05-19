@@ -347,7 +347,7 @@
    {
       var supportcaseSearchObj = search.create({
          type: "supportcase",
-         filters:
+         filters: 
          [
             ["company.internalid","anyof",userid],   // lkn jb ye krta hn tou display ni hota
           // ["company","is","3M AAA"],     jb me ye open krta hn data display hojata hy

@@ -59,7 +59,7 @@ var KTSweetAlert2Demo = function () {
 				showCancelButton: true,
 				cancelButtonText: "<i class='la la-thumbs-down'></i> No, thanks",
 				customClass: {
-					confirmButton: "btn btn-danger",
+					confirmButton: "btn btn-primary",
 					cancelButton: "btn btn-default"
 				}
 			});

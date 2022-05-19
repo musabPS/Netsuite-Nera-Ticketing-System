@@ -161,7 +161,7 @@
 												<!--begin::Input-->
 
 
-												<div class="form-group" style="">
+												<div class="form-group ">
 
 													<label  data-toggle="popover" title="Product List" data-html="true" data-content="Please select your Product, serial number list populated accoring to selected product">Select your Product</label>
 													   <select id="dropdown_productlist" name="dropdown_productlist" class="form-control form-control-solid form-control-lg">
@@ -292,7 +292,7 @@
 
 												
 
-												<div class="form-group">
+												<div class="form-group pt-10">
 													<label data-toggle="popover" title="Subject" data-html="true" data-content=" Write your Problem Area">Subject</label>
 													<input type="text" class="form-control form-control-solid form-control-lg" id="txt_subject" name="txt_subject" value="${ds.title}"/>
 												</div>
@@ -400,7 +400,7 @@
 
 												
 												<div class="mr-2">
-													<button type="button" id="prev-step" class="btn btn-light-primary font-weight-bolder px-10 py-3" data-wizard-type="action-prev">
+													<button type="button" id="prev-step" class="btn text-hover-primary font-weight-bolder px-10 py-3" data-wizard-type="action-prev">
 													<span class="svg-icon svg-icon-md mr-3">
 														<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-left.svg-->
 														<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -980,7 +980,7 @@ jQuery(document).ready(function() {
 				html+='<div class="row"> '
 						
 			}
-				html+='<div class="col-xl-6"> <label data-toggle="popover" title="'+customFields_Forms[i].values.custrecord_ps_custom_support_poptitle+'" data-html="true" data-content="'+customFields_Forms[i].values.custrecord_ps_support_field_popuptext+'">'+customFields_Forms[i].values.custrecord_ps_custom_support_fieldlabel+'</label>'
+				html+='<div class="col-xl-6"> <label data-toggle="popover" class="mt-10" title="'+customFields_Forms[i].values.custrecord_ps_custom_support_poptitle+'" data-html="true" data-content="'+customFields_Forms[i].values.custrecord_ps_support_field_popuptext+'">'+customFields_Forms[i].values.custrecord_ps_custom_support_fieldlabel+'</label>'
 				html+='<input type="text"  class="form-control form-control-solid form-control-lg" id="'+customFields_Forms[i].values.custrecord_ps_custom_support_fieldname+'" name="txt_fname" placeholder="'+customFields_Forms[i].values.custrecord_ps_support_field_placeholder+'"/>'
 			    html+=' </div>'
 

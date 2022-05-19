@@ -248,10 +248,10 @@
 													    divContent+='<p>'+parseData[i].values["solution.message"]+' </p>'
 														pagelink="${ds.Kb_ViewPage}"+"&kbid="+parseData[i].values["solution.internalid"][0].value+"&username="+userName+"&userid="+userId+"&pagetype=kbview"
 														createNewTicketUrl='${ds.create_NewTicketScriptUrl}&type=Create&username='+userName+'&userid='+userId
-													    divContent+="<p><button type='button' class='btn btn-danger' onClick='window.open(\""+pagelink+"\")'>Read More</button></p>"
+													    divContent+="<p><button type='button' class='btn btn-primary' onClick='window.open(\""+pagelink+"\")'>Read More</button></p>"
 													}
 
-												        divContent+="</br></br><h4><strong>Can't find your answer?</strong> <a href=\""+createNewTicketUrl+"\" class='text-danger'>Create New Ticket</a> </h4>"
+												        divContent+="</br></br><h4><strong>Can't find your answer?</strong> <a href=\""+createNewTicketUrl+"\" class='text-primary'>Create New Ticket</a> </h4>"
 								                        $('#div_kb').append('<div class="form-group">'+divContent+"</div>")
 
 													// var parseData="";

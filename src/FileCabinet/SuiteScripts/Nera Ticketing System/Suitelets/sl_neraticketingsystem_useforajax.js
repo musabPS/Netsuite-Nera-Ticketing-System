@@ -16,7 +16,7 @@ define([
      'SuiteScripts/Nera Ticketing System/lib/helper_lib'
 ], function (render, file, search, redirect, url, https,record,searchlib,constants,helperlib) {
 
-
+ 
     function htmlContent(link, dataSource) {
         var pageRenderer = render.create(); //pageRenderer will combine datasource and template
         var templateFile = file.load({
@@ -68,7 +68,7 @@ define([
         if(parseBody.actionType=="voidTicket")
         {
             log.debug("POST voidTicket", context.request.body);
-           // record.delete({ type: 'supportcase', id: parseBody.ticketInternalID });
+           record.delete({ type: 'supportcase', id: parseBody.ticketInternalID });
             var returnPost={
                 success: true,
                 TicketList:  url.resolveScript({scriptId: constants.SCRIPT.Ticket_Listing.SCRIPT_ID, deploymentId: "1",returnExternalUrl: true})
@@ -83,7 +83,7 @@ define([
         {
             getProductSerialNumber=searchlib.getCustomFields_accordingToSelectedItems(parseBody.itemCat)
             context.response.write(getProductSerialNumber);
-            return
+            return  
         }
 
         getProductSerialNumber=searchlib.getSerailNumber(parseBody.productid)

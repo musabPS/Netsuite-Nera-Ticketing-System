@@ -556,7 +556,7 @@ var KTAppInbox = function() {
                     type: "danger",
                     buttonsStyling: false,
                     confirmButtonText: "Discard draft",
-                    confirmButtonClass: "btn btn-danger",
+                    confirmButtonClass: "btn btn-primary",
                     showCancelButton: true,
                     cancelButtonText: "Cancel",
                     cancelButtonClass: "btn btn-light-primary"

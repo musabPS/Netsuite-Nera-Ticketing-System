@@ -10,7 +10,7 @@
 
     return {
 
-        URL: {  
+        URL: {   
             ROOTFOLDER:'SuiteScripts/Nera Ticketing System/my-app/', 
             SCREENSHOTS_HTMLFOLDER :  'SuiteScripts/Nera Ticketing System/Customer_Ticket_html/',
 

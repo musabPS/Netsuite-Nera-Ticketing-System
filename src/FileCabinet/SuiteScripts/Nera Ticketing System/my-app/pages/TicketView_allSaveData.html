@@ -13,7 +13,7 @@
                 <div class="btn-group">
                  <button id="print" type="button" class="btn btn-primary font-weight-bolder mr-2" onclick="window.print();">Print</button>
                 </div>
-                <a href="${ds.viewURL}&type=Edit&id=${ds.id}" class="btn btn-light-primary font-weight-bolder mr-2">
+                <a href="${ds.viewURL}&type=Edit&id=${ds.id}" class="btn btn-primary font-weight-bolder mr-2">
                 
                     Edit 
                    </a>
@@ -61,7 +61,7 @@
                         <div class="form-group row">
                             <div class="col-lg-4">
                             <h4>Subject:</h4>
-                            <a href="" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">${ds.title}</a>
+                            <span class="font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal" style="text-decoration: none;">${ds.title}</span>
                             </div>
                         
                         </div>
@@ -124,7 +124,7 @@
    
         dynamicHtml+='<div class="col-lg-4">'
             dynamicHtml+=' <label>'+fieldInformationArray[i].htmlFieldLabel+':</label>'
-            dynamicHtml+='<a href="#" class="btn btn-light-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">'+fieldInformationArray[i].htmlFieldValue+'</a>'
+            dynamicHtml+='<a href="#" class="btn text-hover-primary font-weight-bold" data-toggle="modal" data-target="#kt_maxlength_modal">'+fieldInformationArray[i].htmlFieldValue+'</a>'
         dynamicHtml+= '</div>'
    
         if(rowFieldCount == 2 || ( rowFieldCount == 3 && i>2) )

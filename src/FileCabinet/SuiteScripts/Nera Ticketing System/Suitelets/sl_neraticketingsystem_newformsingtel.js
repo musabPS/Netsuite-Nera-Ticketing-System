@@ -183,7 +183,7 @@ define([
             // }
             var product=""
 
-            if(getTicketData[0].values.custevent_ps_ticketingsystem_product.length>0)
+            if(getTicketData[0].values.custevent_ps_ticketingsystem_product.length>0) 
             {
                 product=getTicketData[0].values.custevent_ps_ticketingsystem_product[0].value
             }
